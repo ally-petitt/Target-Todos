@@ -33,9 +33,10 @@ header div {
     float: right;
 }
 
-header a img {
+header img {
     width: 26px;
     height: 26px;
+    cursor: pointer;
 }
 
 header a {
@@ -50,6 +51,8 @@ header a {
 }
 
 .target-container {
+    display: flex;
+    justify-content: center;
     height: 400px;
     width: 400px;
     margin: 40px;
@@ -106,4 +109,46 @@ header a {
     height: 3px;
     width: 110%;
     background-color: var(--icon-color);
+}
+
+.hide {
+    display: none
+}
+
+.color-theme img {
+    position: absolute;
+    padding: 0;
+    z-index: 10;
+}
+
+.color-pallete {
+    height: 32px;
+    width: auto;
+    margin: -3px 0 0 -10px;
+    background-color: green;
+    border-radius: 40px;
+}
+
+.color-list {
+    margin-top: 3px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.color-list:first-child {
+    margin-left: 45px;
+}
+
+.color-list:last-child {
+    margin-right: 9px;
+}
+
+.color-list li {
+    border-radius: 50%;
+    height: 26px;
+    width: 26px;
+    margin: 0 7px;
+    list-style-type: none;
+    background-color: black;
 }
