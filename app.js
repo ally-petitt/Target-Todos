@@ -6,10 +6,14 @@ colorTheme_div.addEventListener('mouseover', showThemes);
 colorTheme_div.addEventListener('mouseout', removeThemes);
 
 function showThemes() {
+    colorThemes.classList.remove('shrinkingAnimation')
+    colorThemes.classList.add('growingAnimation')
     colorThemes.classList.remove('hide')
 }
 
 function removeThemes() {
+    colorThemes.classList.add('shrinkingAnimation')
     colorThemes.classList.add('hide');
+    colorThemes.classList.remove('growingAnimation')
 }
 

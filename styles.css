@@ -33,7 +33,7 @@ header div {
     float: right;
 }
 
-header img {
+.icon {
     width: 26px;
     height: 26px;
     cursor: pointer;
@@ -112,7 +112,7 @@ header a {
 }
 
 .hide {
-    display: none
+    visibility: hidden;
 }
 
 .color-theme img {
@@ -124,9 +124,10 @@ header a {
 .color-pallete {
     height: 32px;
     width: auto;
-    margin: -3px 0 0 -10px;
+    margin: -3px 0 0 -9px;
     background-color: green;
     border-radius: 40px;
+    transition: all .5s;
 }
 
 .color-list {
@@ -147,8 +148,48 @@ header a {
 .color-list li {
     border-radius: 50%;
     height: 26px;
-    width: 26px;
+    width: 28px;
     margin: 0 7px;
     list-style-type: none;
     background-color: black;
+    cursor: pointer;
+}
+
+.showTodoItem {
+    height: 10px;
+}
+
+.showTodoItem *:not(.underline) {
+    display: inline;
+}
+
+.showTodoItem .icon {
+    float: right;
+    margin-bottom: -3px;
+}
+
+
+/*animation classes*/
+.growingAnimation {
+    animation: grow .4s ease-in-out forwards;
+    transform-origin: 1% 50%;
+    opacity: 0;
+}
+
+.shrinkingAnimation {
+    animation: shrink .4s ease-in forwards;
+    transform-origin: 1% 50%;
+}
+
+/*keyframes*/
+@keyframes grow {
+    0%{opacity: 0; width: 30px;}
+    25% {opacity: 1; width: 30px}
+    100% {width: 100%; opacity: 1;}
+}
+
+@keyframes shrink {
+    0%{width: 100%;}
+    75% {width: 50px; opacity: .5}
+    100% {width: 45px; opacity: 0;}
 }
