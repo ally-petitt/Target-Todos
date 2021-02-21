@@ -1,13 +1,58 @@
+/*Create different color themes!*/
+:root{
+    --main-color: red;
+    --remaining-circle-color: white;
+    --text-color: black;
+    --icon-color: black;
+    --hover-color: pink;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+header {
+    position: relative;
+    min-width: 100vw;
+    height: 10px;
+}
+
+header div {
+    margin: 15px;
+    display: inline-block;
+}
+
+.addItem {
+    float: right;
+}
+
+header a img {
+    width: 26px;
+    height: 26px;
+}
+
+header a {
+    color: var(--icon-color)
+}
+
+.target-location-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 60vh;
 }
 
 .target-container {
     height: 400px;
     width: 400px;
+    margin: 40px;
 }
 
 .circle {
@@ -15,10 +60,11 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: red;
+    background-color: var(--main-color);
     margin: 0 auto;
     top: 50%;
     left: 50%;
+    cursor: pointer;
 }
 
 .circle5 {
@@ -29,7 +75,7 @@ body {
 .circle4 {
     width: 80%;
     height: 80%;
-    background-color: white;
+    background-color: var(--remaining-circle-color);
 }
 
 .circle3 {
@@ -40,10 +86,24 @@ body {
 .circle2 {
     width: 50%;
     height: 50%;
-    background-color: white;
+    background-color: var(--remaining-circle-color);
 }
 
 .circle1 {
     width: 35%;
     height: 35%;
+}
+
+.showTodoItem {
+    margin: 15px auto;
+    text-align: center;
+    font-size: 1.6em;
+    width: 500px;
+}
+
+.underline {
+    display: inline-block;
+    height: 3px;
+    width: 110%;
+    background-color: var(--icon-color);
 }
