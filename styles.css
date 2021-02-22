@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Ubuntu:wght@300;400;500&display=swap');
+
 /*Create different color themes!*/
 :root{
     --main-color: red;
@@ -5,12 +7,14 @@
     --text-color: black;
     --icon-color: black;
     --hover-color: pink;
+    --box-shadow-color: #bbb;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Ubuntu', 'Oswald', sans-serif;
 }
 
 body {
@@ -43,65 +47,39 @@ header a {
     color: var(--icon-color)
 }
 
-.target-location-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-}
-
 .target-container {
-    display: flex;
-    justify-content: center;
-    height: 400px;
-    width: 400px;
-    margin: 40px;
+    position: relative;
+    right: 0;
+    display: inline-block;
+    text-align: center;
+    height: 300px;
+    width: 100vw;
+    margin: 40px 0;
 }
 
 .circle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
     border-radius: 50%;
     background-color: var(--main-color);
-    margin: 0 auto;
-    top: 50%;
-    left: 50%;
+    margin: auto;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
     cursor: pointer;
+
+    /*do something with the size in javascript*/
+    height: 100px;
+    width: 100px;
 }
 
-.circle5 {
-    width: 100%;
-    height: 100%;
-}
-
-.circle4 {
-    width: 80%;
-    height: 80%;
-    background-color: var(--remaining-circle-color);
-}
-
-.circle3 {
-    width: 70%;
-    height: 70%;
-}
-
-.circle2 {
-    width: 50%;
-    height: 50%;
-    background-color: var(--remaining-circle-color);
-}
-
-.circle1 {
-    width: 35%;
-    height: 35%;
-}
+.circle {}
 
 .showTodoItem {
-    margin: 15px auto;
     text-align: center;
     font-size: 1.6em;
     width: 500px;
+    margin: 15px auto;
 }
 
 .underline {
@@ -155,10 +133,6 @@ header a {
     cursor: pointer;
 }
 
-.showTodoItem {
-    height: 10px;
-}
-
 .showTodoItem *:not(.underline) {
     display: inline;
 }
@@ -168,6 +142,53 @@ header a {
     margin-bottom: -3px;
 }
 
+/*task template*/
+.task-template-container {
+    display: none;
+    position: absolute;
+    float: right;
+    right: 40px;
+    top: 70px;
+    padding: 15px;
+    box-shadow: 2px 2px 5px var(--box-shadow-color);
+    border-radius: 20px;
+    text-align: center;
+    z-index: 1000;
+    animation: flipDown .4s ease;
+    transform-origin: 50% 1%;
+}
+
+.task-prompt {
+    float: right;
+    color: var(--icon-color)
+}
+
+.user-input {
+    margin: 5px 0;
+}
+
+.task-template-container input {
+    outline: none;
+    border: none;
+}
+
+.task-template-underline {
+    width: 200px;
+    height: 2px;
+    background-color: var(--icon-color);
+}
+
+.save-btn {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 3px 5px;
+    border-radius: 5px;
+    border: none;
+    color: var(--remaining-circle-color);
+    background-color: var(--main-color);
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+}
 
 /*animation classes*/
 .growingAnimation {
@@ -181,6 +202,19 @@ header a {
     transform-origin: 1% 50%;
 }
 
+.rotate-plus-forward {
+    animation: plusRotateForward .4s ease-in-out forwards;
+}
+
+.rotate-plus-back {
+    animation: plusRotateBack .3s ease-in-out forwards;
+}
+
+.template-exit-anim {
+    animation: flipUp .3s ease forwards;
+    transform-origin: 50% 100%;
+}
+
 /*keyframes*/
 @keyframes grow {
     0%{opacity: 0; width: 30px;}
@@ -192,4 +226,23 @@ header a {
     0%{width: 100%;}
     75% {width: 50px; opacity: .5}
     100% {width: 45px; opacity: 0;}
+}
+
+@keyframes plusRotateForward {
+    100% {transform: rotateZ(135deg);}
+}
+
+@keyframes plusRotateBack {
+    0% {transform: rotateZ(135deg);}
+    100% {transform: rotateZ(270deg);}
+}
+
+@keyframes flipDown {
+    0% {display: block; transform: rotateX(90deg);}
+    100% {display: block; transform: rotateX(0deg);}
+}
+
+@keyframes flipUp {
+    0% {display: block; transform: rotateX(0deg);}
+    100% {display: none; transform: rotateX(90deg);}
 }
