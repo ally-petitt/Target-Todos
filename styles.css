@@ -43,6 +43,10 @@ header div {
     cursor: pointer;
 }
 
+.icon {
+    fill: red;
+}
+
 header a {
     color: var(--icon-color)
 }
@@ -60,20 +64,21 @@ header a {
 .circle {
     position: absolute;
     border-radius: 50%;
-    background-color: var(--main-color);
     margin: auto;
     right: 0;
     left: 0;
     top: 0;
     bottom: 0;
     cursor: pointer;
-
-    /*do something with the size in javascript*/
-    height: 50px;
-    width: 50px;
 }
 
-.circle {}
+.circle:nth-child(odd) {
+    background-color: var(--main-color);
+}
+
+.circle:nth-child(even) {
+    background-color: var(--remaining-circle-color);
+}
 
 .showTodoItem {
     text-align: center;

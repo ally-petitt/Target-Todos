@@ -9,6 +9,7 @@ var goal = document.querySelector('.goalEntry');
 var subgoal = document.querySelector('.subgoalEntry');
 var comment = document.querySelector('.commentEntry')
 const targetContainer = document.querySelector('.target-container')
+const form = document.querySelector('form');
 
 //event listeners
 colorTheme_div.addEventListener('mouseover', showThemes);
@@ -20,9 +21,7 @@ plusBtn.addEventListener('click', () => {
         showTaskTemplate()
     }
     });
-document.querySelector('.task-template-container form').submit(() => {
-    console.log('submit')
-})
+form.addEventListener('submit', createCircle)
 
 //functions
 function showThemes() {
@@ -57,10 +56,31 @@ function createCircle(e) {
     let newCircle = document.createElement('div');
     newCircle.classList.add('circle');
     targetContainer.appendChild(newCircle)
+    setSize(newCircle);
+    newCircle = saveInfo(e, newCircle);
 
-    saveInfo(newCircle);
+    form.reset();
 }
 
-function saveInfo(newCircle) {
-    console.log("")
+function saveInfo(e, newCircle) {
+    goal = e.target[0].value;
+    subgoal = e.target[1].value;
+    comment = e.target[2].value;
+    newCircle.setAttribute('data-goal', goal);
+    newCircle.setAttribute('data-subgoal', subgoal)
+    newCircle.setAttribute('data-comment', comment)
+    return newCircle
+}
+
+function setSize(circle) {
+    var childCount = targetContainer.childElementCount;
+    if (childCount == 1) {
+        circle.style.cssText = "height: 50px; width: 50px;"
+    } else {
+        var size = (childCount * 50).toString() + "px"
+        circle.style.height = size;
+        circle.style.width = size;
+    }
+    var zIndex = (0 - childCount).toString();
+    circle.style.zIndex = zIndex;
 }
