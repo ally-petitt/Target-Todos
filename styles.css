@@ -69,8 +69,8 @@ header a {
     cursor: pointer;
 
     /*do something with the size in javascript*/
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
 }
 
 .circle {}
