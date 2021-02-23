@@ -155,9 +155,11 @@ function createListItem(e) {
 function checkLiDelete(e) {
     if (e.code == "Backspace") {
         if (e.target.value == "") {
-            let textBox = e.target;
-            textBox.parentNode.remove();
-            textBox.remove()
+            if (e.target != subgoalList.firstElementChild.firstElementChild) {
+                let textBox = e.target;
+                textBox.parentNode.remove();
+                textBox.remove()
+            }
         }
     }
 }
