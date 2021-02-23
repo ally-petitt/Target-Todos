@@ -1,5 +1,4 @@
 //add color change to target on hover, but disable event bubbling
-//add subtasks when you hover over the task
 //make it so that a list comes up and they can drag items in order of 
 //importance, and then rearrange the items in the circle to fit the order
 
@@ -14,6 +13,9 @@ var comment = document.querySelector('.commentEntry');
 var subgoalList = document.querySelector('.subgoalList')
 const targetContainer = document.querySelector('.target-container')
 const form = document.querySelector('form')
+const showTodoItem = document.querySelector('.showTodoItem');
+const todoInfo = document.querySelector('.todoInfo');
+const todoItem = document.querySelector('.todoItem')
 
 //event listeners
 colorTheme_div.addEventListener('mouseover', showThemes);
@@ -27,7 +29,8 @@ plusBtn.addEventListener('click', () => {
     });
 form.addEventListener('submit', checkSubmit);
 subgoal.addEventListener('keydown', createListItem)
-targetContainer.addEventListener('click', showGoalInfo)
+targetContainer.addEventListener('click', showGoalInfo);
+targetContainer.addEventListener('mouseover', updateTodoItem);
 
 //functions
 function showThemes() {
@@ -76,17 +79,27 @@ function createCircle(e) {
     newCircle.classList.add('circle');
     targetContainer.appendChild(newCircle)
     setSize(newCircle);
-    newCircle = saveInfo(e, newCircle);
+    saveInfo(e, newCircle);
 }
 
 function saveInfo(e, newCircle) {
-    goal = e.target[0].value;
-    subgoal = e.target[1].value;
-    comment = e.target[2].value;
+    var goal = e.target[0].value;
+    var subgoalList = document.querySelectorAll('.subgoalItem')
+    var subgoal = "";
+    var comment = document.querySelector('.comments').value
+
+    subgoalList.forEach((subgoalItem) => {
+        if(subgoalItem.value == "") {
+            return
+        }
+        subgoal = subgoal.concat(subgoalItem.value.toString()) + '\n' + '\n'
+        console.log(subgoal)
+    })
+    console.log(subgoal)
+
     newCircle.setAttribute('data-goal', goal);
     newCircle.setAttribute('data-subgoal', subgoal)
     newCircle.setAttribute('data-comment', comment)
-    return newCircle
 }
 
 function setSize(circle) {
@@ -102,25 +115,26 @@ function setSize(circle) {
     circle.style.zIndex = zIndex;
 }
 
-// function updateTodoItem(goal) {
-//     var todoItem = document.querySelector('.todoItem')
-//     if (goal == null) {
-//         todoItem.classList.add('emptyTaskText')
-//     } else {
-//         todoItem.classList.remove('emptyTaskText');
-//         todoItem.innerText = goal;
-//     }
-// }
+function updateTodoItem(e) {
+    var goal = e.target.getAttribute('data-goal');
+    if (goal == null) {
+        todoItem.classList.add('emptyTaskText')
+    } else {
+        todoItem.classList.remove('emptyTaskText');
+        todoItem.innerText = goal;
+    }
+}
 
 function showGoalInfo(e) {
     e.stopPropagation();
+    console.log(e);
     var goal = e.target.getAttribute('data-goal');
     var subgoal = e.target.getAttribute('data-subgoal');
     var comment = e.target.getAttribute('data-comment');
     document.querySelector('.displayGoal').innerText = goal;
-    document.querySelector('.displaySubgoal').innerText = subgoal;
+    document.querySelector('.showSubgoalList').innerText = subgoal;
     document.querySelector('.displayComment').innerText = comment;
-    
+    appearAnimations();
 }
 
 function createListItem(e) {
@@ -135,6 +149,17 @@ function createListItem(e) {
             textBox.focus();
         }
     }
+    checkLiDelete(e);
+}
+
+function checkLiDelete(e) {
+    if (e.code == "Backspace") {
+        if (e.target.value == "") {
+            let textBox = e.target;
+            textBox.parentNode.remove();
+            textBox.remove()
+        }
+    }
 }
 
 function removeBulletPoints() {
@@ -143,3 +168,12 @@ function removeBulletPoints() {
     }
 }
 
+function appearAnimations() {
+    showTodoItem.classList.add('disappear-anim');
+    setTimeout(function() {showTodoItem.style.display = 'none';
+    todoInfo.style.display = "flex";
+    todoInfo.classList.add('scaleUp')}, 250)
+}
+
+//keep the animation classes until they click on a different circle so that
+//it doesn't repeat each time they click

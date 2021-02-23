@@ -90,7 +90,7 @@ header a {
 .underline {
     display: inline-block;
     height: 3px;
-    width: 110%;
+    width: 100%;
     background-color: var(--icon-color);
 }
 
@@ -154,8 +154,8 @@ header a {
     float: right;
     right: 40px;
     top: 70px;
-    padding: 15px;
-    padding-left: 25px;
+    padding: 20px 20px;
+    padding-left: 30px;
     box-shadow: 2px 2px 5px var(--box-shadow-color);
     border-radius: 20px;
     text-align: center;
@@ -223,12 +223,15 @@ input.subgoal.input {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .todoInfo {
     margin: 0 auto;
     padding: 15px;
-    display: flex;
+    display: none;
+    opacity: 0;
     flex-direction: column;
     justify-content: flex-start;
     text-align: left;
@@ -238,6 +241,10 @@ input.subgoal.input {
 
 .item {
     margin: 10px;
+}
+
+.showGoal {
+    padding: 0;
 }
 
 /*animation classes*/
@@ -265,6 +272,14 @@ input.subgoal.input {
     transform-origin: 50% 100%;
 }
 
+.disappear-anim {
+    animation: shrinkDown .2s forwards;
+}
+
+.scaleUp {
+    animation: scaleUp .2s forwards .3s;
+}
+
 /*keyframes*/
 @keyframes grow {
     0%{opacity: 0; width: 30px;}
@@ -276,6 +291,10 @@ input.subgoal.input {
     0%{width: 100%;}
     75% {width: 50px; opacity: .5}
     100% {width: 45px; opacity: 0;}
+}
+
+@keyframes shrinkDown {
+    100% {transform: rotateY(90deg);}
 }
 
 @keyframes plusRotateForward {
@@ -297,5 +316,10 @@ input.subgoal.input {
     100% {display: none; transform: rotateX(90deg);}
 }
 
-/*make todo item disappear by lowering widht
-make new card pop a little larger than normal and shrink to normal size*/
+@keyframes scaleUp {
+    0% {transform: scale(0); opacity: 1;}
+    75% {transform: scale(1.2);}
+    100% {transform: scale(1); opacity: 1;}
+}
+
+/*customize scrollbar*/
