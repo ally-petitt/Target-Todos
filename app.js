@@ -1,5 +1,8 @@
 //add color change to target on hover, but disable event bubbling
 //add subtasks when you hover over the task
+//make it so that a list comes up and they can drag items in order of 
+//importance, and then rearrange the items in the circle to fit the order
+
 const colorTheme_div = document.querySelector('.color-theme');
 const colorThemes = document.querySelector('.color-theme .hide');
 const plusBtn = document.querySelector('.plus-btn');
@@ -7,9 +10,10 @@ const saveBtn = document.querySelector('.save-btn');
 const taskTemplateContainer = document.querySelector('.task-template-container')
 var goal = document.querySelector('.goalEntry');
 var subgoal = document.querySelector('.subgoalEntry');
-var comment = document.querySelector('.commentEntry')
+var comment = document.querySelector('.commentEntry');
+var subgoalList = document.querySelector('.subgoalList')
 const targetContainer = document.querySelector('.target-container')
-const form = document.querySelector('form');
+const form = document.querySelector('form')
 
 //event listeners
 colorTheme_div.addEventListener('mouseover', showThemes);
@@ -21,7 +25,9 @@ plusBtn.addEventListener('click', () => {
         showTaskTemplate()
     }
     });
-form.addEventListener('submit', createCircle)
+form.addEventListener('submit', checkSubmit);
+targetContainer.addEventListener('mouseover', collectGoalInfo);
+subgoal.addEventListener('keydown', createListItem)
 
 //functions
 function showThemes() {
@@ -48,11 +54,22 @@ function hideTaskTemplate() {
     plusBtn.classList.remove('rotate-plus-forward');
     taskTemplateContainer.classList.add('template-exit-anim');
     setTimeout(() => {
-        taskTemplateContainer.style.display = "none"}, 400)
+        taskTemplateContainer.style.display = "none";
+        form.reset();
+        removeBulletPoints();
+    }, 400)
+}
+
+function checkSubmit(e) {
+    e.preventDefault();
+    if (document.activeElement.classList.contains('subgoalItem')) {
+        return false;
+    } else {
+        createCircle(e);
+    }
 }
 
 function createCircle(e) {
-    e.preventDefault();
     let newCircle = document.createElement('div');
     newCircle.classList.add('circle');
     targetContainer.appendChild(newCircle)
@@ -81,6 +98,53 @@ function setSize(circle) {
         circle.style.height = size;
         circle.style.width = size;
     }
-    var zIndex = (0 - childCount).toString();
+    var zIndex = (100000 - childCount).toString();
     circle.style.zIndex = zIndex;
 }
+
+function collectGoalInfo(e) {
+    var x = e.clientX, y = e.clientY;
+    let elementUnderMouse = document.elementFromPoint(x, y);
+    let goal = elementUnderMouse.getAttribute('data-goal');
+    let subgoal = elementUnderMouse.getAttribute('data-subgoal');
+    let comment = elementUnderMouse.getAttribute('data-comment');
+    updateTodoItem(goal);
+    targetContainer.addEventListener('click', function() {
+        showGoalInfo(goal, subgoal, comment)
+    })
+}
+
+function updateTodoItem(goal) {
+    var todoItem = document.querySelector('.todoItem')
+    if (goal == null) {
+        todoItem.classList.add('emptyTaskText')
+    } else {
+        todoItem.classList.remove('emptyTaskText');
+        todoItem.innerText = goal;
+    }
+}
+
+function showGoalInfo(goal, subgoal, comment) {
+    console.log(subgoal, comment);
+}
+
+function createListItem(e) {
+    if (e.code == "Enter") {
+        if (e.target.value.trim() != "") {
+            let li = document.createElement('li')
+            let textBox = document.createElement('input')
+            textBox.setAttribute('type', 'text');
+            textBox.classList.add('subgoalItem')
+            li.appendChild(textBox);
+            document.querySelector('.subgoalList').appendChild(li);
+            textBox.focus();
+        }
+    }
+}
+
+function removeBulletPoints() {
+    while (subgoalList.childElementCount > 1) {
+        subgoalList.removeChild(subgoalList.lastElementChild)
+    }
+}
+

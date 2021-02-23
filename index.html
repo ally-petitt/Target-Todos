@@ -33,7 +33,9 @@
                 <br> 
 
                 <div class="subgoalEntry user-input">
-                    <input type="text" class="subgoal input" placeholder="Your Subgoal (optional)"></input>
+                    <ul class="subgoalList dontSubmit">
+                        <li><input type="text" class="subgoalItem" placeholder="Your Subgoal (optional)"</input></li>
+                    </ul>
                     <div class="task-template-underline"></div>
                     <h6 class="task-prompt">SUBGOAL</h6>
                 </div>
@@ -50,15 +52,11 @@
             </form>
         </div>
     </div>
-    <div class="target-container">
-        <!--<div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>-->
-    </div>
+    <div class="target-container"></div>
+
     <div class="text-container">
         <div class="showTodoItem">
-            <div class="todoItem">My Task</div>
+            <div class="todoItem emptyTaskText">Hover over the target to see your goals..</div>
             <img src="icons/edit.svg" class="icon" alt="edit">
             <div class="underline"></div>
         </div>
