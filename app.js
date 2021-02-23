@@ -91,12 +91,14 @@ function saveInfo(e, newCircle) {
     subgoalList.forEach((subgoalItem) => {
         if(subgoalItem.value == "") {
             return
+        }else if (subgoalItem == subgoalList[subgoalList.length - 1]) {
+            subgoal = subgoal.concat(subgoalItem.value.toString())
+            console.log('I am the last child')  
+        } else {
+            subgoal = subgoal.concat(subgoalItem.value.toString()) + '\n' + '\n'
+            console.log('i am not the last child')
         }
-        subgoal = subgoal.concat(subgoalItem.value.toString()) + '\n' + '\n'
-        console.log(subgoal)
     })
-    console.log(subgoal)
-
     newCircle.setAttribute('data-goal', goal);
     newCircle.setAttribute('data-subgoal', subgoal)
     newCircle.setAttribute('data-comment', comment)
@@ -127,7 +129,6 @@ function updateTodoItem(e) {
 
 function showGoalInfo(e) {
     e.stopPropagation();
-    console.log(e);
     var goal = e.target.getAttribute('data-goal');
     var subgoal = e.target.getAttribute('data-subgoal');
     var comment = e.target.getAttribute('data-comment');
