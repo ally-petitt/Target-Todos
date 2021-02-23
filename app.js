@@ -66,6 +66,8 @@ function checkSubmit(e) {
         return false;
     } else {
         createCircle(e);
+        form.reset();
+        removeBulletPoints();
     }
 }
 
@@ -75,8 +77,6 @@ function createCircle(e) {
     targetContainer.appendChild(newCircle)
     setSize(newCircle);
     newCircle = saveInfo(e, newCircle);
-
-    form.reset();
 }
 
 function saveInfo(e, newCircle) {
