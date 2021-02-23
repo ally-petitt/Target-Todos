@@ -218,6 +218,28 @@ input.subgoal.input {
     transition: all .3s ease;
 }
 
+/*todo info */
+.todoInfo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.todoInfo {
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    box-shadow: 2px 2px 7px var(--box-shadow-color);
+    border-radius: 20px;
+}
+
+.item {
+    margin: 10px;
+}
+
 /*animation classes*/
 .growingAnimation {
     animation: grow .4s ease-in-out forwards;
@@ -274,3 +296,6 @@ input.subgoal.input {
     0% {display: block; transform: rotateX(0deg);}
     100% {display: none; transform: rotateX(90deg);}
 }
+
+/*make todo item disappear by lowering widht
+make new card pop a little larger than normal and shrink to normal size*/

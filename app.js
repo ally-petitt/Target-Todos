@@ -26,8 +26,8 @@ plusBtn.addEventListener('click', () => {
     }
     });
 form.addEventListener('submit', checkSubmit);
-targetContainer.addEventListener('mouseover', collectGoalInfo);
 subgoal.addEventListener('keydown', createListItem)
+targetContainer.addEventListener('click', showGoalInfo)
 
 //functions
 function showThemes() {
@@ -102,30 +102,25 @@ function setSize(circle) {
     circle.style.zIndex = zIndex;
 }
 
-function collectGoalInfo(e) {
-    var x = e.clientX, y = e.clientY;
-    let elementUnderMouse = document.elementFromPoint(x, y);
-    let goal = elementUnderMouse.getAttribute('data-goal');
-    let subgoal = elementUnderMouse.getAttribute('data-subgoal');
-    let comment = elementUnderMouse.getAttribute('data-comment');
-    updateTodoItem(goal);
-    targetContainer.addEventListener('click', function() {
-        showGoalInfo(goal, subgoal, comment)
-    })
-}
+// function updateTodoItem(goal) {
+//     var todoItem = document.querySelector('.todoItem')
+//     if (goal == null) {
+//         todoItem.classList.add('emptyTaskText')
+//     } else {
+//         todoItem.classList.remove('emptyTaskText');
+//         todoItem.innerText = goal;
+//     }
+// }
 
-function updateTodoItem(goal) {
-    var todoItem = document.querySelector('.todoItem')
-    if (goal == null) {
-        todoItem.classList.add('emptyTaskText')
-    } else {
-        todoItem.classList.remove('emptyTaskText');
-        todoItem.innerText = goal;
-    }
-}
-
-function showGoalInfo(goal, subgoal, comment) {
-    console.log(subgoal, comment);
+function showGoalInfo(e) {
+    e.stopPropagation();
+    var goal = e.target.getAttribute('data-goal');
+    var subgoal = e.target.getAttribute('data-subgoal');
+    var comment = e.target.getAttribute('data-comment');
+    document.querySelector('.displayGoal').innerText = goal;
+    document.querySelector('.displaySubgoal').innerText = subgoal;
+    document.querySelector('.displayComment').innerText = comment;
+    
 }
 
 function createListItem(e) {
