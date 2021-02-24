@@ -110,7 +110,11 @@ function setSize(circle) {
     if (childCount == 1) {
         circle.style.cssText = "height: 50px; width: 50px;"
     } else {
-        var size = (childCount * 50).toString() + "px"
+        var numPixels = childCount * 50;
+        var size = numPixels.toString() + "px"
+        if (numPixels > 300) {
+            targetContainer.style.height = size;
+        }
         circle.style.height = size;
         circle.style.width = size;
     }
