@@ -228,7 +228,6 @@ input.subgoal.input {
 }
 
 .todoInfo {
-    margin: 0 auto;
     padding: 15px;
     display: none;
     opacity: 0;

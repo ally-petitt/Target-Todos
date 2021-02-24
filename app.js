@@ -31,6 +31,7 @@ form.addEventListener('submit', checkSubmit);
 subgoal.addEventListener('keydown', createListItem)
 targetContainer.addEventListener('click', showGoalInfo);
 targetContainer.addEventListener('mouseover', updateTodoItem);
+targetContainer.addEventListener('click', removeGoalInfo);
 document.querySelector('body').addEventListener('click', removeGoalInfo);
 
 //functions
@@ -78,6 +79,7 @@ function checkSubmit(e) {
 function createCircle(e) {
     let newCircle = document.createElement('div');
     newCircle.classList.add('circle');
+    newCircle.classList.add('dontRemoveGoal');
     targetContainer.appendChild(newCircle)
     setSize(newCircle);
     saveInfo(e, newCircle);
@@ -128,13 +130,15 @@ function updateTodoItem(e) {
 
 function showGoalInfo(e) {
     e.stopPropagation();
-    var goal = e.target.getAttribute('data-goal');
-    var subgoal = e.target.getAttribute('data-subgoal');
-    var comment = e.target.getAttribute('data-comment');
-    document.querySelector('.displayGoal').innerText = goal;
-    document.querySelector('.showSubgoalList').innerText = subgoal;
-    document.querySelector('.displayComment').innerText = comment;
-    appearAnimations();
+    if (e.target.classList.contains('circle')) {
+        var goal = e.target.getAttribute('data-goal');
+        var subgoal = e.target.getAttribute('data-subgoal');
+        var comment = e.target.getAttribute('data-comment');
+        document.querySelector('.displayGoal').innerText = goal;
+        document.querySelector('.showSubgoalList').innerText = subgoal;
+        document.querySelector('.displayComment').innerText = comment;
+        appearAnimations();
+    }
 }
 
 function createListItem(e) {
@@ -179,9 +183,10 @@ function appearAnimations() {
     todoInfo.classList.add('scaleUp')}, 150)
 }
 
-function removeGoalInfo(e) {
-    if (e.target.classList.contains('circle') == false) {
-        removeAnimations();
+function removeGoalInfo(e) { 
+    e.stopPropagation();
+    if (e.target == document.querySelector('body') || e.target.classList.contains('remove')) {
+    removeAnimations();
     }
 }
 
@@ -195,6 +200,3 @@ function removeAnimations() {
         showTodoItem.classList.add('fadeUp')
     }, 170)
 }
-
-//keep the animation classes until they click on a different circle so that
-//it doesn't repeat each time they click
