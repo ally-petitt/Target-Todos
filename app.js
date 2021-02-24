@@ -31,6 +31,7 @@ form.addEventListener('submit', checkSubmit);
 subgoal.addEventListener('keydown', createListItem)
 targetContainer.addEventListener('click', showGoalInfo);
 targetContainer.addEventListener('mouseover', updateTodoItem);
+document.querySelector('body').addEventListener('click', removeGoalInfo);
 
 //functions
 function showThemes() {
@@ -93,10 +94,8 @@ function saveInfo(e, newCircle) {
             return
         }else if (subgoalItem == subgoalList[subgoalList.length - 1]) {
             subgoal = subgoal.concat(subgoalItem.value.toString())
-            console.log('I am the last child')  
         } else {
             subgoal = subgoal.concat(subgoalItem.value.toString()) + '\n' + '\n'
-            console.log('i am not the last child')
         }
     })
     newCircle.setAttribute('data-goal', goal);
@@ -172,10 +171,29 @@ function removeBulletPoints() {
 }
 
 function appearAnimations() {
+    todoInfo.classList.remove('fadeDown');
+    showTodoItem.classList.remove('fadeUp')
     showTodoItem.classList.add('disappear-anim');
     setTimeout(function() {showTodoItem.style.display = 'none';
     todoInfo.style.display = "flex";
-    todoInfo.classList.add('scaleUp')}, 250)
+    todoInfo.classList.add('scaleUp')}, 150)
+}
+
+function removeGoalInfo(e) {
+    if (e.target.classList.contains('circle') == false) {
+        removeAnimations();
+    }
+}
+
+function removeAnimations() {
+    showTodoItem.classList.remove('disappear-anim');
+    todoInfo.classList.remove('scaleUp');
+    todoInfo.classList.add('fadeDown')
+    setTimeout(function() {
+        todoInfo.style.display = "none";
+        showTodoItem.style.display = "block"
+        showTodoItem.classList.add('fadeUp')
+    }, 170)
 }
 
 //keep the animation classes until they click on a different circle so that
