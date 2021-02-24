@@ -23,7 +23,7 @@
         <div class="addItem"><img src="icons/plus.svg" alt="Add an Item" class="icon plus-btn"></div>
     </header>
         <div class="task-template-container">
-            <form>
+            <form class="submitGoal">
                 <div class="goalEntry user-input">
                     <input type="text" class="goal input" placeholder="Your Goal" required></input>
                     <div class="task-template-underline"></div>
@@ -54,25 +54,27 @@
     <div class="target-container remove"></div>
 
     <div class="todoInfo-container remove">
-        <div class="todoInfo">
-            <div class="showGoal item">
-                <h6 class="goalHeading">Goal</h6>
-                <p class="displayGoal">Lorem, ipsum dolor.</p>
+        <form class="editForm">
+            <div class="todoInfo">
+                <div class="showGoal item">
+                    <h6 class="goalHeading">Goal</h6>
+                    <span class="displayGoal editContent"></span>
+                </div>
+                <div class="showSubgoal item">
+                    <h6 class="subgoalHeading">Subgoal</h6>
+                    <span class="showSubgoalList editContent"></span>
+                </div>
+                <div class="showComment item">
+                    <h6 class="commentHeading">Comment</h6>
+                    <span class="displayComment editContent"></span>
+                </div>
+                <div class="edit-complete">
+                    <img src="icons/check.svg" class="icon check icon-hide" alt="complete"></img>
+                    <img src="icons/edit.svg" class="icon edit icon-hide" alt="edit"></img>
+                </div>            
+                <button type="submit" class="submitEdit-btn save-btn">Save</button>
             </div>
-            <div class="showSubgoal item">
-                <h6 class="subgoalHeading">Subgoal</h6>
-                <ul class="showSubgoalList">
-                </ul>
-            </div>
-            <div class="showComment item">
-                <h6 class="commentHeading">Comment</h6>
-                <p class="displayComment">Lorem ipsum dolor sit.</p>
-            </div>
-            <div class="edit-complete">
-                <img src="icons/check.svg" class="icon check" alt="complete"></img>
-                <img src="icons/edit.svg" class="icon edit" alt="edit"></img>
-            </div>
-        </div>
+        </form>
     </div>
 
     <div class="text-container">

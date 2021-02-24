@@ -225,13 +225,13 @@ input.subgoal.input {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    max-width: 400px;
+    max-width: 300px;
     margin: 0 auto;
 }
 
 .todoInfo {
     padding: 15px;
-    max-width: 400px;
+    max-width: 300px;
     display: none;
     opacity: 0;
     flex-direction: column;
@@ -249,6 +249,11 @@ input.subgoal.input {
     height: 15px;
     width: 15px;
     margin: 0 4px;
+}
+
+.submitEdit-btn {
+    margin-top: 10px;
+    display: none;
 }
 
 .item {

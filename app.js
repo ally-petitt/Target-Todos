@@ -12,7 +12,8 @@ var subgoal = document.querySelector('.subgoalEntry');
 var comment = document.querySelector('.commentEntry');
 var subgoalList = document.querySelector('.subgoalList')
 const targetContainer = document.querySelector('.target-container')
-const form = document.querySelector('form')
+const goalForm = document.querySelector('.submitGoal');
+const editForm = document.querySelector('.editForm')
 const showTodoItem = document.querySelector('.showTodoItem');
 const todoInfo = document.querySelector('.todoInfo');
 const todoItem = document.querySelector('.todoItem')
@@ -27,12 +28,14 @@ plusBtn.addEventListener('click', () => {
         showTaskTemplate()
     }
     });
-form.addEventListener('submit', checkSubmit);
+goalForm.addEventListener('submit', checkSubmit);
 subgoal.addEventListener('keydown', createListItem)
 targetContainer.addEventListener('click', showGoalInfo);
 targetContainer.addEventListener('mouseover', updateTodoItem);
 targetContainer.addEventListener('click', removeGoalInfo);
 document.querySelector('body').addEventListener('click', removeGoalInfo);
+document.querySelector('.edit').addEventListener('click', makeEditable);
+editForm.addEventListener('submit', checkEditSubmission)
 
 //functions
 function showThemes() {
@@ -60,7 +63,7 @@ function hideTaskTemplate() {
     taskTemplateContainer.classList.add('template-exit-anim');
     setTimeout(() => {
         taskTemplateContainer.style.display = "none";
-        form.reset();
+        goalForm.reset();
         removeBulletPoints();
     }, 400)
 }
@@ -71,7 +74,7 @@ function checkSubmit(e) {
         return false;
     } else {
         createCircle(e);
-        form.reset();
+        goalForm.reset();
         removeBulletPoints();
     }
 }
@@ -203,4 +206,26 @@ function removeAnimations() {
         showTodoItem.style.display = "block"
         showTodoItem.classList.add('fadeUp')
     }, 170)
+}
+
+function makeEditable() {
+    clearIcons();
+    const editContent = document.getElementsByClassName('editContent');
+    var i;
+    for (i=0; i < editContent.length; i++) {
+        editContent[i].contentEditable = "true";
+        editContent[i].setAttribute('role', 'textbox')
+    }
+}
+
+function clearIcons() {
+    const saveEditBtn = document.querySelector('.submitEdit-btn');
+    const icons = document.getElementsByClassName('icon-hide')
+    icons[0].style.display = "none"
+    icons[1].style.display = "none"
+    saveEditBtn.style.display = "block";
+}
+
+function checkEditSubmission(e) {
+    e.preventDefault();
 }
