@@ -192,6 +192,7 @@ header a {
     padding: 3px 5px;
     border-radius: 5px;
     border: none;
+    outline: none;
     color: var(--remaining-circle-color);
     background-color: var(--main-color);
     font-family: 'Ubuntu', sans-serif;

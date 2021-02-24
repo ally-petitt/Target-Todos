@@ -35,7 +35,7 @@ targetContainer.addEventListener('mouseover', updateTodoItem);
 targetContainer.addEventListener('click', removeGoalInfo);
 document.querySelector('body').addEventListener('click', removeGoalInfo);
 document.querySelector('.edit').addEventListener('click', makeEditable);
-editForm.addEventListener('submit', checkEditSubmission)
+editForm.addEventListener('submit', updateInfo)
 
 //functions
 function showThemes() {
@@ -88,24 +88,24 @@ function createCircle(e) {
     saveInfo(e, newCircle);
 }
 
-function saveInfo(e, newCircle) {
+function saveInfo(e, circle) {
     var goal = e.target[0].value;
     var subgoalList = document.querySelectorAll('.subgoalItem')
-    var subgoal = "";
+    var subgoal
     var comment = document.querySelector('.comments').value
 
     subgoalList.forEach((subgoalItem) => {
         if(subgoalItem.value == "") {
             return
-        }else if (subgoalItem == subgoalList[subgoalList.length - 1]) {
-            subgoal = subgoal.concat(subgoalItem.value.toString())
-        } else {
-            subgoal = subgoal.concat(subgoalItem.value.toString()) + '\n' + '\n'
+        }else {
+            subgoal = document.createElement('li');
+            subgoal.innerText = subgoalItem.value;
+            subgoal.classList.add = "subgoalItem";
+            document.querySelector('.showSubgoalList').appendChild(subgoal)
         }
     })
-    newCircle.setAttribute('data-goal', goal);
-    newCircle.setAttribute('data-subgoal', subgoal)
-    newCircle.setAttribute('data-comment', comment)
+    document.querySelector('.displayGoal').innerText = goal;
+    document.querySelector('.displayComment').innerText = comment;
 }
 
 function setSize(circle) {
@@ -138,12 +138,6 @@ function updateTodoItem(e) {
 function showGoalInfo(e) {
     e.stopPropagation();
     if (e.target.classList.contains('circle')) {
-        var goal = e.target.getAttribute('data-goal');
-        var subgoal = e.target.getAttribute('data-subgoal');
-        var comment = e.target.getAttribute('data-comment');
-        document.querySelector('.displayGoal').innerText = goal;
-        document.querySelector('.showSubgoalList').innerText = subgoal;
-        document.querySelector('.displayComment').innerText = comment;
         appearAnimations();
     }
 }
@@ -215,7 +209,7 @@ function makeEditable() {
     for (i=0; i < editContent.length; i++) {
         editContent[i].contentEditable = "true";
         editContent[i].setAttribute('role', 'textbox');
-        editContent[i].style.borderBottom = "2px solid black"
+        editContent[i].style.borderBottom = "1px solid black"
     }
 }
 
@@ -227,6 +221,7 @@ function clearIcons() {
     saveEditBtn.style.display = "block";
 }
 
-function checkEditSubmission(e) {
+function updateInfo(e) {
     e.preventDefault();
+    console.log(e.target)
 }
