@@ -256,6 +256,11 @@ input.subgoal.input {
     display: none;
 }
 
+.editContent {
+    display: block;
+    outline: none;
+}
+
 .item {
     margin: 10px;
 }

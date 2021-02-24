@@ -214,7 +214,8 @@ function makeEditable() {
     var i;
     for (i=0; i < editContent.length; i++) {
         editContent[i].contentEditable = "true";
-        editContent[i].setAttribute('role', 'textbox')
+        editContent[i].setAttribute('role', 'textbox');
+        editContent[i].style.borderBottom = "2px solid black"
     }
 }
 
