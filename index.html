@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="color-theme">
-            <img src="icons/color-theme.svg" alt="color-theme" class="icon">
+            <img src="icons/color-theme.svg" alt="color-theme" class="icon color-icon">
             <div class="color-pallete hide">
                 <ul class="color-list">
                     <li></li>
@@ -25,7 +25,7 @@
         <div class="task-template-container">
             <form class="submitGoal">
                 <div class="goalEntry user-input">
-                    <input type="text" class="goal input" placeholder="Your Goal" required></input>
+                    <input type="text" class="goal input" placeholder="Your Goal"></input>
                     <div class="task-template-underline"></div>
                     <h6 class="task-prompt">GOAL</h6>
                 </div>
@@ -58,11 +58,13 @@
             <div class="todoInfo">
                 <div class="showGoal item">
                     <h6 class="goalHeading">Goal</h6>
-                    <span class="displayGoal editContent" required></span>
+                    <span class="displayGoal editContent"></span>
                 </div>
                 <div class="showSubgoal item">
                     <h6 class="subgoalHeading">Subgoal</h6>
-                    <ul class="showSubgoalList editContent"></ul>
+                    <ul class="showSubgoalList editContent">
+                        <li class="subgoalItem hide"></li>
+                    </ul>
                 </div>
                 <div class="showComment item">
                     <h6 class="commentHeading">Comment</h6>

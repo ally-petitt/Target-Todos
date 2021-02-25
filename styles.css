@@ -71,6 +71,7 @@ header a {
     top: 0;
     bottom: 0;
     cursor: pointer;
+    z-index: 1;
 }
 
 .circle:nth-child(odd) {
@@ -102,7 +103,7 @@ header a {
 .color-theme img {
     position: absolute;
     padding: 0;
-    z-index: 10;
+    z-index: 2;
 }
 
 .color-pallete {
@@ -184,6 +185,7 @@ header a {
     width: 200px;
     height: 2px;
     background-color: var(--icon-color);
+    transition: all .3s;
 }
 
 .save-btn {
@@ -209,7 +211,7 @@ input.subgoal.input {
     width: 15px;
 }
 
-.subgoalList li {
+li {
     list-style-type: circle;
 }
 
@@ -268,6 +270,10 @@ input.subgoal.input {
 
 .showGoal {
     padding: 0;
+}
+
+.showComment {
+    margin-bottom: 20px;
 }
 
 /*animation classes*/

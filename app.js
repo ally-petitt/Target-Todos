@@ -63,8 +63,7 @@ function hideTaskTemplate() {
     taskTemplateContainer.classList.add('template-exit-anim');
     setTimeout(() => {
         taskTemplateContainer.style.display = "none";
-        goalForm.reset();
-        removeBulletPoints();
+        resetForm();
     }, 400)
 }
 
@@ -72,11 +71,19 @@ function checkSubmit(e) {
     e.preventDefault();
     if (document.activeElement.classList.contains('subgoalItem')) {
         return false;
-    } else {
+    } else if (document.querySelector('.goal.input').value.trim() == "") {
+        underlineRed();
+        return false;
+    }else {
         createCircle(e);
-        goalForm.reset();
-        removeBulletPoints();
+        resetForm();
     }
+}
+
+function resetForm() {
+    goalForm.reset();
+    removeBulletPoints();
+    underlineBlack();
 }
 
 function createCircle(e) {
@@ -85,6 +92,7 @@ function createCircle(e) {
     newCircle.classList.add('dontRemoveGoal');
     targetContainer.appendChild(newCircle)
     setSize(newCircle);
+    setZIndex();
     saveInfo(e, newCircle);
 }
 
@@ -104,6 +112,7 @@ function saveInfo(e, circle) {
             document.querySelector('.showSubgoalList').appendChild(subgoal)
         }
     })
+    circle.setAttribute('data-goal', goal);
     document.querySelector('.displayGoal').innerText = goal;
     document.querySelector('.displayComment').innerText = comment;
 }
@@ -121,14 +130,26 @@ function setSize(circle) {
         circle.style.height = size;
         circle.style.width = size;
     }
-    var zIndex = (100000 - childCount).toString();
-    circle.style.zIndex = zIndex;
+}
+
+function setZIndex() {
+    var newZIndex;
+    var circles = targetContainer.children;
+    //task-template-container, and color-theme
+    for (var i=0; i< circles.length; i++) {
+        var currentZIndex =window.document.defaultView.getComputedStyle(circles[i]).getPropertyValue('z-index')
+        newZIndex = parseInt(currentZIndex) + 1;
+        circles[i].style.zIndex = newZIndex.toString();
+    }
+    var iconZIndex = parseInt(newZIndex) + 1;
+    document.querySelector('.color-icon').style.zIndex = iconZIndex
+    document.querySelector('.plus-btn').style.zIndex = iconZIndex
 }
 
 function updateTodoItem(e) {
     var goal = e.target.getAttribute('data-goal');
     if (goal == null) {
-        todoItem.classList.add('emptyTaskText')
+        todoItem.classList.add('emptyTaskText');
     } else {
         todoItem.classList.remove('emptyTaskText');
         todoItem.innerText = goal;
@@ -211,6 +232,20 @@ function makeEditable() {
         editContent[i].setAttribute('role', 'textbox');
         editContent[i].style.borderBottom = "1px solid black"
     }
+
+    document.querySelector('.subgoalItem.hide').style.visibility = "visible";
+}
+
+function removeEditAbility() {
+    addIcons();
+    const editContent = document.getElementsByClassName('editContent');
+    var i;
+    for (i=0; i<editContent.length; i++) {
+        editContent[i].contentEditable = "false";
+        editContent[i].setAttribute('role', 'layout');
+        editContent[i].style.borderBottom = "none"
+    }
+    document.querySelector('.subgoalItem.hide').style.visibility = "hidden"
 }
 
 function clearIcons() {
@@ -221,7 +256,25 @@ function clearIcons() {
     saveEditBtn.style.display = "block";
 }
 
+function addIcons() {
+    document.querySelector('.submitEdit-btn').style.display = "none";
+    const icons = document.getElementsByClassName('icon-hide');
+    icons[0].style.display = "inline"
+    icons[1].style.display = "inline"
+}
+
 function updateInfo(e) {
     e.preventDefault();
-    console.log(e.target)
+    addIcons();
+    removeEditAbility();
+}
+
+function underlineRed() {
+    const underline = document.querySelector('.task-template-underline');
+    underline.style.backgroundColor = "red";
+}
+
+function underlineBlack() {
+    const underline = document.querySelector('.task-template-underline');
+    underline.style.backgroundColor = "black";
 }
