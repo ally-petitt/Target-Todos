@@ -149,6 +149,13 @@ header a {
     margin-bottom: -3px;
 }
 
+span.input {
+    display: block;
+    outline: none;
+    text-align: left;
+    height: 1rem;
+}
+
 /*task template*/
 .task-template-container {
     display: none;
@@ -173,7 +180,7 @@ header a {
 }
 
 .user-input {
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .task-template-container input {

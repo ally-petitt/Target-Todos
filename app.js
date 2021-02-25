@@ -7,10 +7,9 @@ const colorThemes = document.querySelector('.color-theme .hide');
 const plusBtn = document.querySelector('.plus-btn');
 const saveBtn = document.querySelector('.save-btn');
 const taskTemplateContainer = document.querySelector('.task-template-container')
-var goal = document.querySelector('.goalEntry');
 var subgoal = document.querySelector('.subgoalEntry');
 var comment = document.querySelector('.commentEntry');
-var subgoalList = document.querySelector('.subgoalList')
+var subgoalList = document.querySelector('.subgoalList');
 const targetContainer = document.querySelector('.target-container')
 const goalForm = document.querySelector('.submitGoal');
 const editForm = document.querySelector('.editForm')
@@ -29,9 +28,8 @@ plusBtn.addEventListener('click', () => {
     }
     });
 goalForm.addEventListener('submit', checkSubmit);
-subgoal.addEventListener('keydown', createListItem)
 targetContainer.addEventListener('click', showGoalInfo);
-targetContainer.addEventListener('mouseover', updateTodoItem);
+// targetContainer.addEventListener('mouseover', updateTodoItem);
 targetContainer.addEventListener('click', removeGoalInfo);
 document.querySelector('body').addEventListener('click', removeGoalInfo);
 document.querySelector('.edit').addEventListener('click', makeEditable);
@@ -41,7 +39,7 @@ editForm.addEventListener('submit', updateInfo)
 function showThemes() {
     colorThemes.classList.remove('shrinkingAnimation')
     colorThemes.classList.add('growingAnimation')
-    colorThemes.classList.remove('hide')
+    colorThemes.classList.remove('hide');
 }
 
 function removeThemes() {
@@ -69,9 +67,7 @@ function hideTaskTemplate() {
 
 function checkSubmit(e) {
     e.preventDefault();
-    if (document.activeElement.classList.contains('subgoalItem')) {
-        return false;
-    } else if (document.querySelector('.goal.input').value.trim() == "") {
+  if   (document.querySelector('.goal.input').innerText.trim() == "") {
         underlineRed();
         return false;
     }else {
@@ -82,7 +78,6 @@ function checkSubmit(e) {
 
 function resetForm() {
     goalForm.reset();
-    removeBulletPoints();
     underlineBlack();
 }
 
@@ -93,28 +88,18 @@ function createCircle(e) {
     targetContainer.appendChild(newCircle)
     setSize(newCircle);
     setZIndex();
-    saveInfo(e, newCircle);
+    addEventListeners(newCircle);
 }
 
-function saveInfo(e, circle) {
-    var goal = e.target[0].value;
-    var subgoalList = document.querySelectorAll('.subgoalItem')
-    var subgoal
-    var comment = document.querySelector('.comments').value
-
-    subgoalList.forEach((subgoalItem) => {
-        if(subgoalItem.value == "") {
-            return
-        }else {
-            subgoal = document.createElement('li');
-            subgoal.innerText = subgoalItem.value;
-            subgoal.classList.add = "subgoalItem";
-            document.querySelector('.showSubgoalList').appendChild(subgoal)
-        }
+function addEventListeners(circle) {
+    console.log('event listener')
+    circle.addEventListener('mouseover', () => {
+        circle.style.backgroundColor = "black";
+        updateTodoItem();
     })
-    circle.setAttribute('data-goal', goal);
-    document.querySelector('.displayGoal').innerText = goal;
-    document.querySelector('.displayComment').innerText = comment;
+    circle.addEventListener('mouseout', () => {
+        circle.style.backgroundColor = "red";
+    })
 }
 
 function setSize(circle) {
@@ -146,8 +131,9 @@ function setZIndex() {
     document.querySelector('.plus-btn').style.zIndex = iconZIndex
 }
 
-function updateTodoItem(e) {
-    var goal = e.target.getAttribute('data-goal');
+function updateTodoItem() {
+    var goal = document.querySelector('.goal.input').value;
+    console.log(goal)
     if (goal == null) {
         todoItem.classList.add('emptyTaskText');
     } else {
@@ -160,40 +146,19 @@ function showGoalInfo(e) {
     e.stopPropagation();
     if (e.target.classList.contains('circle')) {
         appearAnimations();
+        setGoalInfo(e);
     }
 }
 
-function createListItem(e) {
-    if (e.code == "Enter") {
-        if (e.target.value.trim() != "") {
-            let li = document.createElement('li')
-            let textBox = document.createElement('input')
-            textBox.setAttribute('type', 'text');
-            textBox.classList.add('subgoalItem')
-            li.appendChild(textBox);
-            document.querySelector('.subgoalList').appendChild(li);
-            textBox.focus();
+function setGoalInfo(e) {
+    const inputGoal = e.target.firstElementChild.value
+    for (var i=0; i<e.target.childNodes.length; i++) {
+        if (e.target.childNodes[i].classList.contains('inputSubgoal')) {
+            console.log(e.target.childNodes[i].value)
         }
     }
-    checkLiDelete(e);
-}
 
-function checkLiDelete(e) {
-    if (e.code == "Backspace") {
-        if (e.target.value == "") {
-            if (e.target != subgoalList.firstElementChild.firstElementChild) {
-                let textBox = e.target;
-                textBox.parentNode.remove();
-                textBox.remove()
-            }
-        }
-    }
-}
-
-function removeBulletPoints() {
-    while (subgoalList.childElementCount > 1) {
-        subgoalList.removeChild(subgoalList.lastElementChild)
-    }
+    document.querySelector('.displayGoal').innerText = inputGoal;
 }
 
 function appearAnimations() {
