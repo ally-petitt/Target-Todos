@@ -149,22 +149,15 @@ header a {
     margin-bottom: -3px;
 }
 
-span.input {
-    display: block;
-    outline: none;
-    text-align: left;
-    height: 1rem;
-}
-
 /*task template*/
 .task-template-container {
     display: none;
     position: absolute;
     float: right;
+    max-width: 250px;
     right: 40px;
     top: 70px;
     padding: 20px 20px;
-    padding-left: 30px;
     box-shadow: 2px 2px 5px var(--box-shadow-color);
     background-color: var(--background-color);
     border-radius: 20px;
@@ -174,6 +167,17 @@ span.input {
     transform-origin: 50% 1%;
 }
 
+span.input {
+    display: block;
+    outline: none;
+    min-width: 190px;
+    max-width: 190px;
+    text-align: left;
+    height: 1rem;
+    border-bottom: 2px solid black;
+    transition: all .3s;
+}
+
 .task-prompt {
     float: right;
     color: var(--icon-color)
@@ -181,11 +185,6 @@ span.input {
 
 .user-input {
     margin: 10px 0;
-}
-
-.task-template-container input {
-    outline: none;
-    border: none;
 }
 
 .task-template-underline {
@@ -269,6 +268,7 @@ li {
 .editContent {
     display: block;
     outline: none;
+    transition: all .3s;
 }
 
 .item {
@@ -281,6 +281,10 @@ li {
 
 .showComment {
     margin-bottom: 20px;
+}
+
+.icon.list {
+    transform: scale(0);
 }
 
 /*animation classes*/
@@ -322,6 +326,10 @@ li {
 
 .fadeUp {
     animation: fadeUp .2s forwards;
+}
+
+.listAppear {
+    animation: scaleUp .2s forwards;
 }
 
 /*keyframes*/
