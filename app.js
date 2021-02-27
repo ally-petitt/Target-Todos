@@ -18,6 +18,8 @@ const checkIcon = document.querySelector('.icon.check');
 const todoItemDefaultText = todoItem.defaultValue = "Hover over the target to see your goals..."
 const completedItemsList = document.querySelector('.completedListMain')
 const listIcon = document.querySelector('.icon.list')
+const mainColorTheme = document.getElementById('mainColorTheme')
+let root = document.documentElement;
 var selectedCircle
 
 //event listeners
@@ -36,19 +38,32 @@ document.querySelector('body').addEventListener('click', removeGoalInfo);
 document.querySelector('.edit').addEventListener('click', makeEditable);
 goalForm.addEventListener('submit', checkSubmit)
 checkIcon.addEventListener('click', handleCompletion);
-listIcon.addEventListener('click', handleListClick)
+listIcon.addEventListener('click', handleListClick);
+
+//color Themes
+mainColorTheme.addEventListener('click', () => {
+    root.style.setProperty('--main-color', 'red')
+    root.style.setProperty('--remaining-circle-color', '#eee')
+    root.style.setProperty('--text-color', 'black')
+    root.style.setProperty('--icon-color', 'black')
+    root.style.setProperty('--hover-color', 'pink')
+    root.style.setProperty('-box-shadow-color', '#bbb')
+    root.style.setProperty('--background-color', 'white')
+})
 
 //functions
 function showThemes() {
     colorThemes.classList.remove('shrinkingAnimation')
     colorThemes.classList.add('growingAnimation')
     colorThemes.classList.remove('hide');
+    document.querySelector('.color-icon').style.color = "var(--background-color)";
 }
 
 function removeThemes() {
     colorThemes.classList.add('shrinkingAnimation')
     colorThemes.classList.add('hide');
     colorThemes.classList.remove('growingAnimation')
+    document.querySelector('.color-icon').style.color = "var(--secondary-color)";
 }
 
 function showTaskTemplate() {

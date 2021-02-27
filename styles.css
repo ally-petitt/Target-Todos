@@ -2,13 +2,11 @@
 
 /*Create different color themes!*/
 :root{
-    --main-color: red;
-    --remaining-circle-color: #eee;
-    --text-color: black;
-    --icon-color: black;
-    --hover-color: pink;
-    --box-shadow-color: #bbb;
-    --background-color: white;
+    --background-color: rgb(13, 18, 24);
+    --box-color: white;
+    --main-color: rgb(0, 145, 0);
+    --secondary-color: pink;
+    --third-color: #aaa;
 }
 
 * {
@@ -20,12 +18,12 @@
 
 body {
     min-height: 100vh;
-    color: var(--text-color);
+    color: var(--background-color);
+    background-color: var(--background-color);
 }
 
 header {
     position: relative;
-    min-width: 100vw;
     height: 10px;
 }
 
@@ -39,17 +37,9 @@ header div {
 }
 
 .icon {
-    width: 26px;
-    height: 26px;
+    font-size: 20px;
+    color: var(--secondary-color);
     cursor: pointer;
-}
-
-.icon {
-    fill: red;
-}
-
-header a {
-    color: var(--icon-color)
 }
 
 .target-container {
@@ -58,6 +48,7 @@ header a {
     display: inline-block;
     text-align: center;
     height: 300px;
+    max-width: 100%;
     width: 100vw;
     margin: 30px 0;
 }
@@ -74,17 +65,18 @@ header a {
     z-index: 1;
 }
 
-.circle:nth-child(odd) {
+.circle:nth-child(even) {
     background-color: var(--main-color);
 }
 
-.circle:nth-child(even) {
-    background-color: var(--remaining-circle-color);
+.circle:nth-child(odd) {
+    background-color: var(--third-color);
 }
 
 .showTodoItem {
     text-align: center;
     font-size: 1.6em;
+    color: var(--secondary-color);
     width: 500px;
     margin: 15px auto;
 }
@@ -93,26 +85,31 @@ header a {
     display: inline-block;
     height: 3px;
     width: 100%;
-    background-color: var(--icon-color);
+    background-color: var(--third-color);
 }
 
 .hide {
     visibility: hidden;
 }
 
-.color-theme img {
+.color-theme i {
     position: absolute;
     padding: 0;
     z-index: 2;
+    transition: all .5s;
 }
 
 .color-pallete {
     height: 32px;
     width: auto;
-    margin: -3px 0 0 -9px;
-    background-color: green;
+    margin: -6px 0 0 -9px;
+    background-color: var(--box-color);
     border-radius: 40px;
     transition: all .5s;
+}
+
+#mainColorTheme {
+    background-color: red;
 }
 
 .color-list {
@@ -136,7 +133,7 @@ header a {
     width: 28px;
     margin: 0 7px;
     list-style-type: none;
-    background-color: black;
+    background-color: var(--background-color);
     cursor: pointer;
 }
 
@@ -162,8 +159,8 @@ header a {
     right: 40px;
     top: 70px;
     padding: 20px 20px;
-    box-shadow: 2px 2px 5px var(--box-shadow-color);
-    background-color: var(--background-color);
+    box-shadow: 2px 2px 5px var(--third-color);
+    background-color: var(--secondary-color);
     border-radius: 20px;
     text-align: center;
     z-index: 100000;
@@ -178,13 +175,13 @@ span.input {
     max-width: 190px;
     text-align: left;
     height: 1rem;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--background-color);
     transition: all .3s;
 }
 
 .task-prompt {
     float: right;
-    color: var(--icon-color)
+    color: var(--background-color)
 }
 
 .user-input {
@@ -194,18 +191,18 @@ span.input {
 .task-template-underline {
     width: 200px;
     height: 2px;
-    background-color: var(--icon-color);
+    background-color: var(--secondary-color);
     transition: all .3s;
 }
 
 .save-btn {
     display: inline-block;
     margin: 0 auto;
-    padding: 3px 5px;
+    padding: 5px 8px;
     border-radius: 5px;
     border: none;
     outline: none;
-    color: var(--remaining-circle-color);
+    color: var(--box-color);
     background-color: var(--main-color);
     font-family: 'Ubuntu', sans-serif;
     cursor: pointer;
@@ -250,7 +247,7 @@ li {
     flex-direction: column;
     justify-content: flex-start;
     text-align: left;
-    box-shadow: 2px 2px 7px var(--box-shadow-color);
+    box-shadow: 2px 2px 7px var(--third-color);
     border-radius: 20px;
 }
 
@@ -289,6 +286,11 @@ li {
 
 .icon.list {
     transform: scale(0);
+    color: var(--third-color);
+}
+
+.box {
+    background-color: var(--box-color);
 }
 /*completed items*/
 .completedItemsContainer {
@@ -296,9 +298,10 @@ li {
     max-width: 250px;
     padding: 15px;
     border-radius: 20px;
-    box-shadow: 2px 2px 6px var(--box-shadow-color);
+    box-shadow: 2px 2px 6px var(--third-color);
     left: 110%;
     text-align: left;
+    color: var(--background-color);
 }
 
 .completedListMain li {

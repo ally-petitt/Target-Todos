@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
-    <title>Experimenting</title>
+    <title>Target Todos</title>
 </head>
 <body>
     <header>
         <div class="color-theme">
-            <img src="icons/color-theme.svg" alt="color-theme" class="icon color-icon">
+            <i class="fas fa-palette icon color-icon"></i>
             <div class="color-pallete hide">
                 <ul class="color-list">
+                    <li id="mainColorTheme"></li>
                     <li></li>
-                    <li></li>
-                    <li></li>
+                    <li id="neonGreenTheme"></li>
                 </ul>
             </div>
         </div>
-        <div class="addItem"><img src="icons/plus.svg" alt="Add an Item" class="icon plus-btn"></div>
+        <div class="addItem"><i class="fas fa-plus icon plus-btn"></i></div>
     </header>
-        <div class="task-template-container">
+        <div class="task-template-container box">
             <form class="submitGoal">
                 <div class="goalEntry user-input">
                     <span role="textbox" class="goal input" placeholder="Your Goal" contenteditable></span>
@@ -46,11 +46,15 @@
             </form>
         </div>
     </div>
-    <div class="target-container remove"></div>
+    <div class="target-container remove">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+    </div>
 
     <div class="todoInfo-container remove">
         <form class="editForm">
-            <div class="todoInfo">
+            <div class="todoInfo box">
                 <div class="showGoal item">
                     <h6 class="goalHeading">Goal</h6>
                     <span class="displayGoal editContent goal"></span>
@@ -75,8 +79,8 @@
     <div class="text-container">
         <div class="showTodoItem">
             <div class="todoItem emptyTaskText">Hover over the target to see your goals..</div>
-            <img src="icons/completedList.svg" alt="completed tasks" class="icon list">
-            <div class="completedItemsContainer hide">
+            <i class="far fa-list-alt icon list"></i>
+            <div class="completedItemsContainer box hide">
                 <ul class="completedListMain"></ul>
             </div>    
             <div class="underline"></div>
