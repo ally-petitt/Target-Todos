@@ -17,7 +17,7 @@ const inputGoal = document.querySelector('.goal.input')
 const checkIcon = document.querySelector('.icon.check'); 
 const todoItemDefaultText = todoItem.defaultValue = "Hover over the target to see your goals..."
 const completedItemsList = document.querySelector('.completedListMain')
-const nestedCompletedList = document.querySelector('.completedListNested')
+const listIcon = document.querySelector('.icon.list')
 var selectedCircle
 
 //event listeners
@@ -35,7 +35,8 @@ targetContainer.addEventListener('click', removeGoalInfo);
 document.querySelector('body').addEventListener('click', removeGoalInfo);
 document.querySelector('.edit').addEventListener('click', makeEditable);
 goalForm.addEventListener('submit', checkSubmit)
-checkIcon.addEventListener('click', handleCompletion)
+checkIcon.addEventListener('click', handleCompletion);
+listIcon.addEventListener('click', handleListClick)
 
 //functions
 function showThemes() {
@@ -252,16 +253,7 @@ function underlineBlack() {
 
 function handleCompletion(e) {
     e.preventDefault();
-    clearIcons();
     removeCircle()
-}
-
-function submitCompleteGoals() {
-    editForm.addEventListener('submit', e => {
-        e.preventDefault();
-        removeCircle(e);
-        resetCircleSize();
-    });
 }
 
 function removeCircle() {
@@ -274,11 +266,8 @@ function removeCircle() {
 }
 
 function circleRemoveAnimation() {
-    selectedCircle.classList.add('circleDisappear')
-    setTimeout(() => {
-        selectedCircle.remove();
-        setSize();
-    }, 1000)
+    selectedCircle.remove();
+    setSize();
 }
 
 function setSize() {
@@ -306,28 +295,70 @@ function listAppearAnimation() {
 
 function createList() {
     const mainListItem = document.createElement('li');
+    const nestedCompletedList = document.createElement('ul')
     const nestedSubgoalElem = document.createElement('li');
     const nestedCommentElem = document.createElement('li');
-    let liArray = [mainListItem, nestedSubgoalElem, nestedCommentElem]
+    let liArray = [mainListItem, nestedSubgoalElem, nestedCommentElem, nestedCompletedList]
 
-    completedItemsList.appendChild(mainListItem);
-    mainListItem.appendChild(nestedCompletedList);
-    nestedCompletedList.appendChild(nestedSubgoalElem)
-    nestedCompletedList.appendChild(nestedCommentElem)
-
+    appendCompletedListChildren(liArray)
     addCompletedListClassNames(liArray)
     addListValues(liArray)
+    showValuesOnClick(liArray)
+}
+
+function appendCompletedListChildren(arr) {
+    const [main, sub, com, list] = arr;
+    const newLine = document.createElement('br')
+    completedItemsList.appendChild(main);
+    completedItemsList.appendChild(list);
+    completedItemsList.appendChild(newLine)
+    list.appendChild(sub)
+    list.appendChild(com)
+
 }
 
 function addCompletedListClassNames(arr) {
     arr[0].classList.add('completedGoal')
     arr[1].classList.add('completedSubgoal')
     arr[2].classList.add('completedComment');
+    arr[3].classList.add('completedListNested')
 }
 
 function addListValues(arr) {
     arr[0].innerText = selectedCircle.getAttribute('data-goal')
     arr[1].innerText = selectedCircle.getAttribute('data-subgoal')
     arr[2].innerText = selectedCircle.getAttribute('data-comment')
+    for (var i=1; i<3; i++) {
+        arr[i].style.display = "none";
+        if (arr[i].innerText == "") {
+            arr[i].remove();
+        } 
+        if (arr[3].childElementCount == 0) {
+            arr[3].remove()
+        }
+    }
 }
+
+function showValuesOnClick(arr) {
+    arr[0].addEventListener('click', () => {
+        for (var i=1; i<3; i++) {
+            if (arr[i].style.display == "none"){
+                arr[i].style.display = "list-item";
+            } else {
+                arr[i].style.display = "none";
+                arr[0].style.cursor = "auto";
+            }
+        }
+    })
+}
+
+function handleListClick() {
+    const container = document.querySelector('.completedItemsContainer')
+    if (container.classList.contains('hide')) {
+        container.classList.remove('hide')
+    } else {
+        container.classList.add('hide')
+    }
+}
+
 

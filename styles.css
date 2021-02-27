@@ -149,6 +149,10 @@ header a {
     margin-bottom: -3px;
 }
 
+.showTodoItem {
+    position: relative;
+}
+
 /*task template*/
 .task-template-container {
     display: none;
@@ -293,20 +297,34 @@ li {
     padding: 15px;
     border-radius: 20px;
     box-shadow: 2px 2px 6px var(--box-shadow-color);
-    left: 77vw;
-    bottom: 125px;
+    left: 110%;
     text-align: left;
 }
 
-#completedListMain li {
+.completedListMain li {
     display: list-item;
     margin-left: 1rem;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.completedListMain {
+    display: list-item;
+}
+
+.completedGoal {
+    display: list-item;
     list-style-type: circle;
 }
 
-#completedListNested li {
+.completedListNested li {
     margin-left: 2.7rem;
+    padding-top: none;
     list-style-type: disc;
+}
+
+.completedListNested {
+    max-height: 8rem;
 }
 
 /*animation classes*/
@@ -352,10 +370,6 @@ li {
 
 .listAppear {
     animation: scaleUp .2s forwards .3s;
-}
-
-.circleDisappear {
-    animation: disperseOutwards 1s forwards;
 }
 
 /*keyframes*/
