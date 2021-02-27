@@ -16,6 +16,8 @@ const input = document.querySelector('.input');
 const inputGoal = document.querySelector('.goal.input')
 const checkIcon = document.querySelector('.icon.check'); 
 const todoItemDefaultText = todoItem.defaultValue = "Hover over the target to see your goals..."
+const completedItemsList = document.querySelector('.completedListMain')
+const nestedCompletedList = document.querySelector('.completedListNested')
 var selectedCircle
 
 //event listeners
@@ -165,7 +167,7 @@ function removeGoalInfo(e) {
     e.stopPropagation();
     if (e.target == document.querySelector('body') || e.target.classList.contains('remove')) {
     removeAnimations();
-    resetGoalInfo();
+    addIcons();
     }
 }
 
@@ -264,10 +266,9 @@ function submitCompleteGoals() {
 
 function removeCircle() {
     moveItemToCompleteFolder() 
-    selectedCircle.remove();
     removeAnimations();
+    selectedCircle.remove();
     circleRemoveAnimation();
-    resetGoalInfo();
     resetText();
     setSize();
 }
@@ -295,6 +296,7 @@ function resetText() {
 
 function moveItemToCompleteFolder() {
     listAppearAnimation();
+    createList();
 }
 
 function listAppearAnimation() {
@@ -302,7 +304,30 @@ function listAppearAnimation() {
     listIcon.classList.add('listAppear')
 }
 
-function resetGoalInfo() {
-    addIcons();
+function createList() {
+    const mainListItem = document.createElement('li');
+    const nestedSubgoalElem = document.createElement('li');
+    const nestedCommentElem = document.createElement('li');
+    let liArray = [mainListItem, nestedSubgoalElem, nestedCommentElem]
+
+    completedItemsList.appendChild(mainListItem);
+    mainListItem.appendChild(nestedCompletedList);
+    nestedCompletedList.appendChild(nestedSubgoalElem)
+    nestedCompletedList.appendChild(nestedCommentElem)
+
+    addCompletedListClassNames(liArray)
+    addListValues(liArray)
+}
+
+function addCompletedListClassNames(arr) {
+    arr[0].classList.add('completedGoal')
+    arr[1].classList.add('completedSubgoal')
+    arr[2].classList.add('completedComment');
+}
+
+function addListValues(arr) {
+    arr[0].innerText = selectedCircle.getAttribute('data-goal')
+    arr[1].innerText = selectedCircle.getAttribute('data-subgoal')
+    arr[2].innerText = selectedCircle.getAttribute('data-comment')
 }
 
