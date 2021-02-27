@@ -2,11 +2,12 @@
 
 /*Create different color themes!*/
 :root{
-    --background-color: rgb(13, 18, 24);
-    --box-color: white;
-    --main-color: rgb(0, 145, 0);
-    --secondary-color: pink;
-    --third-color: #aaa;
+    --background-color: white;
+    --box-color: #ddd;
+    --main-color: red;
+    --secondary-color: rgb(224, 127, 89);
+    --third-color: #bbb;
+    --font-color: black;
 }
 
 * {
@@ -18,7 +19,7 @@
 
 body {
     min-height: 100vh;
-    color: var(--background-color);
+    color: var(--font-color);
     background-color: var(--background-color);
 }
 
@@ -76,7 +77,7 @@ header div {
 .showTodoItem {
     text-align: center;
     font-size: 1.6em;
-    color: var(--secondary-color);
+    color: var(--font-color);
     width: 500px;
     margin: 15px auto;
 }
@@ -85,7 +86,7 @@ header div {
     display: inline-block;
     height: 3px;
     width: 100%;
-    background-color: var(--third-color);
+    background-color: var(--font-color);
 }
 
 .hide {
@@ -110,6 +111,10 @@ header div {
 
 #mainColorTheme {
     background-color: red;
+}
+
+#neonGreenTheme {
+    background-color: rgb(0, 145, 0);
 }
 
 .color-list {
@@ -175,13 +180,13 @@ span.input {
     max-width: 190px;
     text-align: left;
     height: 1rem;
-    border-bottom: 2px solid var(--background-color);
+    border-bottom: 2px solid var(--font-color);
     transition: all .3s;
 }
 
 .task-prompt {
     float: right;
-    color: var(--background-color)
+    color: var(--font-color)
 }
 
 .user-input {
@@ -205,6 +210,7 @@ span.input {
     color: var(--box-color);
     background-color: var(--main-color);
     font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
     cursor: pointer;
 }
 
@@ -224,10 +230,11 @@ li {
 
 .emptyTaskText {
     opacity: .7;
-}
+} 
 
-.todoItem {
+.todoItem{
     transition: all .3s ease;
+    color: var(--secondary-color)
 }
 
 /*todo info */
@@ -301,7 +308,7 @@ li {
     box-shadow: 2px 2px 6px var(--third-color);
     left: 110%;
     text-align: left;
-    color: var(--background-color);
+    color: var(--font-color);
 }
 
 .completedListMain li {

@@ -19,6 +19,7 @@ const todoItemDefaultText = todoItem.defaultValue = "Hover over the target to se
 const completedItemsList = document.querySelector('.completedListMain')
 const listIcon = document.querySelector('.icon.list')
 const mainColorTheme = document.getElementById('mainColorTheme')
+const neonGreenTheme = document.getElementById('neonGreenTheme')
 let root = document.documentElement;
 var selectedCircle
 
@@ -39,24 +40,15 @@ document.querySelector('.edit').addEventListener('click', makeEditable);
 goalForm.addEventListener('submit', checkSubmit)
 checkIcon.addEventListener('click', handleCompletion);
 listIcon.addEventListener('click', handleListClick);
-
-//color Themes
-mainColorTheme.addEventListener('click', () => {
-    root.style.setProperty('--main-color', 'red')
-    root.style.setProperty('--remaining-circle-color', '#eee')
-    root.style.setProperty('--text-color', 'black')
-    root.style.setProperty('--icon-color', 'black')
-    root.style.setProperty('--hover-color', 'pink')
-    root.style.setProperty('-box-shadow-color', '#bbb')
-    root.style.setProperty('--background-color', 'white')
-})
+mainColorTheme.addEventListener('click', applyMainColors)
+neonGreenTheme.addEventListener('click', applyGreenTheme)
 
 //functions
 function showThemes() {
     colorThemes.classList.remove('shrinkingAnimation')
     colorThemes.classList.add('growingAnimation')
     colorThemes.classList.remove('hide');
-    document.querySelector('.color-icon').style.color = "var(--background-color)";
+    document.querySelector('.color-icon').style.color = "var(--font-color)";
 }
 
 function removeThemes() {
@@ -263,7 +255,7 @@ function underlineRed() {
 }
 
 function underlineBlack() {
-    document.querySelector('.goal.input').style.borderBottom = "2px solid black"
+    document.querySelector('.goal.input').style.borderBottom = "2px solid var(--font-color)"
 }
 
 function handleCompletion(e) {
@@ -374,6 +366,24 @@ function handleListClick() {
     } else {
         container.classList.add('hide')
     }
+}
+
+function applyMainColors() {
+    root.style.setProperty('--background-color', "white");
+    root.style.setProperty('--box-color', "white");
+    root.style.setProperty('--main-color', "red");
+    root.style.setProperty('--secondary-color', "#01994d");
+    root.style.setProperty('--third-color', "#bbb");
+    root.style.setProperty('--font-color', "black");
+}
+
+function applyGreenTheme() {
+    root.style.setProperty('--background-color', "rgb(13, 18, 24)");
+    root.style.setProperty('--box-color', "white");
+    root.style.setProperty('--main-color', "rgb(0, 145, 0)");
+    root.style.setProperty('--secondary-color', "pink");
+    root.style.setProperty('--third-color', "#aaa");
+    root.style.setProperty('--font-color', "var(--background-color)");
 }
 
 
