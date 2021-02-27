@@ -1,12 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Ubuntu:wght@300;400;500&display=swap');
 
-/*Create different color themes!*/
 :root{
     --background-color: white;
-    --box-color: #ddd;
+    --box-color: white;
     --main-color: red;
     --secondary-color: rgb(224, 127, 89);
-    --third-color: #bbb;
+    --third-color: #ddd;
     --font-color: black;
 }
 
@@ -113,8 +112,16 @@ header div {
     background-color: red;
 }
 
+#tanColorTheme {
+    background-color: #AA8C77;
+}
+
 #neonGreenTheme {
     background-color: rgb(0, 145, 0);
+}
+
+#mixedColorTheme {
+    background-color: #bb2321;
 }
 
 .color-list {
@@ -180,7 +187,7 @@ span.input {
     max-width: 190px;
     text-align: left;
     height: 1rem;
-    border-bottom: 2px solid var(--font-color);
+    border-bottom: 2px solid black;
     transition: all .3s;
 }
 

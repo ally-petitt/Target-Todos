@@ -20,6 +20,9 @@ const completedItemsList = document.querySelector('.completedListMain')
 const listIcon = document.querySelector('.icon.list')
 const mainColorTheme = document.getElementById('mainColorTheme')
 const neonGreenTheme = document.getElementById('neonGreenTheme')
+const tanColorTheme = document.getElementById('tanColorTheme');
+const mixedtheme = document.getElementById('mixedColorTheme')
+const boxes = document.getElementsByClassName('box')
 let root = document.documentElement;
 var selectedCircle
 
@@ -41,7 +44,9 @@ goalForm.addEventListener('submit', checkSubmit)
 checkIcon.addEventListener('click', handleCompletion);
 listIcon.addEventListener('click', handleListClick);
 mainColorTheme.addEventListener('click', applyMainColors)
-neonGreenTheme.addEventListener('click', applyGreenTheme)
+neonGreenTheme.addEventListener('click', applyGreenTheme);
+tanColorTheme.addEventListener('click', applyTanTheme);
+mixedColorTheme.addEventListener('click', applyMixedTheme)
 
 //functions
 function showThemes() {
@@ -255,7 +260,7 @@ function underlineRed() {
 }
 
 function underlineBlack() {
-    document.querySelector('.goal.input').style.borderBottom = "2px solid var(--font-color)"
+    document.querySelector('.goal.input').style.borderBottom = "2px solid black"
 }
 
 function handleCompletion(e) {
@@ -373,8 +378,19 @@ function applyMainColors() {
     root.style.setProperty('--box-color', "white");
     root.style.setProperty('--main-color', "red");
     root.style.setProperty('--secondary-color', "#01994d");
-    root.style.setProperty('--third-color', "#bbb");
+    root.style.setProperty('--third-color', "#ddd");
     root.style.setProperty('--font-color', "black");
+    handleBoxShadow();
+}
+
+function applyTanTheme() {
+    root.style.setProperty('--background-color', "#AA8C77");
+    root.style.setProperty('--box-color', "#e4e3cc");
+    root.style.setProperty('--main-color', "#157F9E");
+    root.style.setProperty('--secondary-color', "#332c30");
+    root.style.setProperty('--third-color', "#E4E3CC");
+    root.style.setProperty('--font-color', "black");
+    handleBoxShadow();
 }
 
 function applyGreenTheme() {
@@ -384,6 +400,30 @@ function applyGreenTheme() {
     root.style.setProperty('--secondary-color', "pink");
     root.style.setProperty('--third-color', "#aaa");
     root.style.setProperty('--font-color', "var(--background-color)");
+    document.querySelector('.underline').style.backgroundColor = "white"
+    handleBoxShadow();
+}
+
+function applyMixedTheme() {
+    root.style.setProperty('--background-color', "#551b17");
+    root.style.setProperty('--box-color', "#2a4d53");
+    root.style.setProperty('--main-color', "#e4e3cc");
+    root.style.setProperty('--secondary-color', "#e4e3cc");
+    root.style.setProperty('--third-color', "#bb2321");
+    root.style.setProperty('--font-color', "e8e8c6");
+    handleBoxShadow();
+}
+
+function handleBoxShadow() {
+    if (root.style.getPropertyValue('--main-color') == "red") {
+        for (var i=0; i<boxes.length; i++) {
+            boxes[i].style.boxShadow = "2px 2px 7px"
+        }
+    } else {
+        for (var i=0; i<boxes.length; i++) {
+            boxes[i].style.boxShadow = "none"
+        }
+    }
 }
 
 
