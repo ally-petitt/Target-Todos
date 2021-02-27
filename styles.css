@@ -329,7 +329,11 @@ li {
 }
 
 .listAppear {
-    animation: scaleUp .2s forwards;
+    animation: scaleUp .2s forwards .3s;
+}
+
+.circleDisappear {
+    animation: disperseOutwards 1s forwards;
 }
 
 /*keyframes*/
@@ -382,6 +386,19 @@ li {
 @keyframes fadeUp {
     0% {transform: translateY(0); opacity: 0;}
     100% {transform: translateY(-10px); opacity: 1;}
+}
+
+@keyframes disperseOutwards {
+    0% {
+        transform: scale(1); 
+        filter: blur(0); 
+        opacity: 1
+    }
+    100% {
+        transform: scale(1.2); 
+        filter: blur(10px); 
+        opacity: 0
+    }
 }
 
 /*customize scrollbar*/
