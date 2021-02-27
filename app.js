@@ -1,7 +1,3 @@
-//add color change to target on hover, but disable event bubbling
-//make it so that a list comes up and they can drag items in order of 
-//importance, and then rearrange the items in the circle to fit the order
-
 const colorTheme_div = document.querySelector('.color-theme');
 const colorThemes = document.querySelector('.color-theme .hide');
 const plusBtn = document.querySelector('.plus-btn');
@@ -18,9 +14,8 @@ const displaySubgoal = document.querySelector('.displaySubgoal');
 const displayComment = document.querySelector('.displayComment');
 const input = document.querySelector('.input');
 const inputGoal = document.querySelector('.goal.input')
-const checkIcon = document.querySelector('.icon.check');
-var selectedCircle;
-var currentGoalInfo
+const checkIcon = document.querySelector('.icon.check'); 
+var selectedCircle
 
 //event listeners
 colorTheme_div.addEventListener('mouseover', showThemes);
@@ -37,9 +32,6 @@ targetContainer.addEventListener('click', removeGoalInfo);
 document.querySelector('body').addEventListener('click', removeGoalInfo);
 document.querySelector('.edit').addEventListener('click', makeEditable);
 goalForm.addEventListener('submit', checkSubmit)
-// input.addEventListener('keyup', () => {
-//     input.style.height = calcHeight(input.innerText) + 'px';
-// })
 checkIcon.addEventListener('click', handleCompletion)
 
 //functions
@@ -103,29 +95,27 @@ function createCircle(e) {
     targetContainer.appendChild(newCircle);
     setSize(newCircle);
     setZIndex();
-    addEventListeners(e, newCircle);
+    addAttributes(newCircle);
+    setEventListeners(newCircle)
 }
 
-function addEventListeners(e, circle) {
-    if (e.target == goalForm) {currentGoalInfo = setGoalInfo();}
-    else if (e.target == editForm) {currentGoalInfo = saveEditInfo(); }
-    initializeCompleteStatus(currentGoalInfo);
-    circle.addEventListener('mouseover', () => {
-        updateTodoItem(currentGoalInfo);
-        showGoalOnHover(currentGoalInfo);})
-    circle.addEventListener('mouseout', () => {
-        decreaseOpacity();
-    })
+function setEventListeners(circle) {
+    circle.addEventListener('mouseover', showGoalOnHover);
+    circle.addEventListener('mouseout', decreaseOpacity)
 }
 
-function initializeCompleteStatus(info) {
-    info.goal.complete = false
-    info.subgoal.complete = false
-    info.comment.complete = false
+function addAttributes(circle) {
+    selectedCircle = circle;
+    const goalInput = document.querySelector('.goal.input').innerText;
+    const subgoalInput = document.querySelector('.subgoal.input').innerText;
+    const commentInput = document.querySelector('.comments.input').innerText;
+    circle.setAttribute('data-goal', goalInput)
+    circle.setAttribute('data-subgoal', subgoalInput)
+    circle.setAttribute('data-comment', commentInput)
 }
 
-function showGoalOnHover(info) {
-    todoItem.innerText = info.goal
+function showGoalOnHover(e) {
+    todoItem.innerText = e.target.getAttribute('data-goal')
     todoItem.style.opacity = "1";
 }
 
@@ -148,13 +138,6 @@ function setSize(circle) {
     }
 }
 
-// function calcHeight(value) {
-//     let numLineBreaks = (value.match(/\n/g) || []).length;
-//     // min-height + lines x line-height + padding + border
-//     let newHeight = 20 + numLineBreaks * 20;
-//     return newHeight;
-// }
-
 function setZIndex() {
     var newZIndex;
     var circles = targetContainer.children;
@@ -168,41 +151,18 @@ function setZIndex() {
     document.querySelector('.plus-btn').style.zIndex = iconZIndex
 }
 
-function updateTodoItem(info) {
-    displayGoal.innerText = info.goal;
-    displaySubgoal.innerText = info.subgoal;
-    displayComment.innerText = info.comment;
-}
-
 function showGoalInfo(e) {
     e.stopPropagation();
     if (e.target.classList.contains('circle')) {
         appearAnimations();
-        selectedCircle = e.target;
-        updateTextDecoration();
+        setGoalValue(e)
     }
 }
 
-function setGoalInfo() {
-    let goal = document.querySelector('.goal.input').innerText;
-    let subgoal = document.querySelector('.subgoal.input').innerText;
-    let comment = document.querySelector('.comments.input').innerText;
-    return  {
-        goal,
-        subgoal,
-        comment
-        }
-}
-
-function saveEditInfo() {
-    let goal = document.querySelector('.displayGoal').innerText;
-    let subgoal = document.querySelector('.displaySubgoal').innerText;
-    let comment = document.querySelector('.displayComment').innerText;
-    return  {
-        goal,
-        subgoal,
-        comment
-    }
+function setGoalValue(e) {
+    displayGoal.innerText = selectedCircle.getAttribute('data-goal');
+    displaySubgoal.innerText = selectedCircle.getAttribute('data-subgoal');
+    displayComment.innerText = selectedCircle.getAttribute('data-comment');
 }
 
 function appearAnimations() {
@@ -233,7 +193,8 @@ function removeAnimations() {
     }, 170)
 }
 
-function makeEditable() {
+function makeEditable(e) {
+    selectedCircle = e.target
     clearIcons();
     submitEditedGoals();
     const editContent = document.getElementsByClassName('editContent');
@@ -279,7 +240,17 @@ function updateGoalDisplay(e) {
     e.preventDefault();
     addIcons();
     removeEditAbility();
-    addEventListeners(e, selectedCircle)
+    updateAttributes();
+    setGoalValue();
+}
+
+function updateAttributes() {
+    const goal = displayGoal.innerText
+    const subgoal = displaySubgoal.innerText
+    const comment = displayComment.innerText
+    selectedCircle.setAttribute('data-goal', goal)
+    selectedCircle.setAttribute('data-subgoal', subgoal)
+    selectedCircle.setAttribute('data-comment', comment)
 }
 
 function underlineRed() {
@@ -317,30 +288,6 @@ function updateTextDecoration() {
     crossoutGoal(completed)
     let incomplete = getIncompleteStatus();
     uncrossGoal(incomplete)
-}
-
-function getCompleteStatus() {
-    let arr = []
-    if (currentGoalInfo.goal.complete == true) {
-        arr.push('displayGoal');
-    } else if (currentGoalInfo.subgoal.complete == true) {
-        arr.push('subgoalDisplay');
-    } else if (currentGoalInfo.comment.complete == true) {
-        arr.push('commentDisplay');
-    }
-    return arr
-}
-
-function getIncompleteStatus() {
-    let arr = [];
-    if (currentGoalInfo.goal.complete == false) {
-        arr.push('displayGoal');
-    } else if (currentGoalInfo.subgoal.complete == false) {
-        arr.push('subgoalDisplay');
-    } else if (currentGoalInfo.comment.complete == false) {
-        arr.push('commentDisplay');
-    }
-    return arr
 }
 
 function crossoutGoal(completedItems) {
@@ -391,32 +338,3 @@ function resetGoalInfo() {
     addIcons();
 }
 
-function setCompleteStatus(e) {
-    let arr = []
-    if (e.target == displayGoal) {
-        currentGoalInfo.goal.complete = true
-        arr.push(displayGoal)
-    }else if (e.target == displaySubgoal) {
-        currentGoalInfo.subgoal.complete = true
-        arr.push(displaySubgoal);
-    } else if (e.target == displayComment) {
-        currentGoalInfo.comment.complete = true;
-        arr.push(displayComment)
-    }
-    return arr
-}
-
-function removeCompleteStatus(e) {
-    let arr = []
-    if (e.target == displayGoal) {
-        currentGoalInfo.goal.complete = false;
-        arr.push(displayGoal)
-    }else if (e.target == displaySubgoal) {
-        currentGoalInfo.subgoal.complete = false;
-        arr.push(displaySubgoal);
-    } else if (e.target == displayComment) {
-        currentGoalInfo.comment.complete = false;
-        arr.push(displayComment)
-    }
-    return arr
-}
