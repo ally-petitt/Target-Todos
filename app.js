@@ -15,7 +15,6 @@ const displayComment = document.querySelector('.displayComment');
 const input = document.querySelector('.input');
 const inputGoal = document.querySelector('.goal.input')
 const checkIcon = document.querySelector('.icon.check'); 
-const todoItemDefaultText = todoItem.defaultValue = "Hover over the target to see your goals..."
 const completedItemsList = document.querySelector('.completedListMain')
 const listIcon = document.querySelector('.icon.list')
 const mainColorTheme = document.getElementById('mainColorTheme')
@@ -27,8 +26,11 @@ let root = document.documentElement;
 var selectedCircle
 
 //event listeners
-colorTheme_div.addEventListener('mouseover', showThemes);
-colorTheme_div.addEventListener('mouseout', removeThemes);
+if (screen.width >= 768) {
+    colorTheme_div.addEventListener('mouseover', showThemes);
+    colorTheme_div.addEventListener('mouseout', removeThemes);
+    todoItem.defaultValue = "Hover over the target to see your goals..."
+}
 plusBtn.addEventListener('click', () => {
     if (taskTemplateContainer.style.display == "block") {
         hideTaskTemplate();
@@ -47,6 +49,21 @@ mainColorTheme.addEventListener('click', applyMainColors)
 neonGreenTheme.addEventListener('click', applyGreenTheme);
 tanColorTheme.addEventListener('click', applyTanTheme);
 mixedColorTheme.addEventListener('click', applyMixedTheme)
+
+//event listeners for smaller devices
+if (screen.width < 768) {
+    colorTheme_div.addEventListener('click', () => {
+        if (document.querySelector('.color-pallete').classList.contains('hide')) {
+            showThemes();
+        } else {
+            removeThemes();
+        }
+    })
+    listIcon.addEventListener('click', scrollToList)
+    alterDefaultText();
+}
+
+window.addEventListener('DOMContentLoaded', showDefaultText)
 
 //functions
 function showThemes() {
@@ -426,4 +443,21 @@ function handleBoxShadow() {
     }
 }
 
+function alterDefaultText() {
+    todoItem.defaultValue = "Click the target to see your goals..."
+}
+
+function showDefaultText() {
+    todoItem.innerText = todoItem.defaultValue;
+}
+
+function scrollToList() {
+    const listContainer = document.querySelector('.completedItemsContainer')
+    const anchorTag = document.querySelector('.scrollToList');
+    if (listContainer.classList.contains('hide')) {
+        anchorTag.removeAttribute('href');
+    } else {
+        anchorTag.setAttribute('href', '#listContainer');
+    }
+}
 

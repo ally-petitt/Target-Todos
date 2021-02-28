@@ -14,6 +14,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Ubuntu', 'Oswald', sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -309,6 +310,7 @@ li {
 /*completed items*/
 .completedItemsContainer {
     position: absolute;
+    width: fit-content;
     max-width: 250px;
     padding: 15px;
     border-radius: 20px;
@@ -472,4 +474,24 @@ body::-webkit-scrollbar-track {
     }
 }
 
-/*customize scrollbar*/
+/*media queries*/ 
+@media screen and (max-width: 768px) {
+    .task-template-container {
+        max-width: 170px;
+    }
+    
+    span.input {
+        width: 80%;
+        max-width: 120px;
+        min-width: 120px;
+    }
+
+    .completedItemsContainer {
+        margin: 0 auto;
+        width: fit-content;
+        left: 0;
+        right: 0;
+        top: 90px;
+        text-align: left;
+    }
+}
