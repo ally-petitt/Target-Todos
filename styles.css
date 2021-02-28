@@ -505,7 +505,7 @@ body::-webkit-scrollbar-track {
     }
 
     .underline {
-        width: 375px;
+        max-width: 375px;
         height: 2px;
     }
 }
@@ -513,10 +513,15 @@ body::-webkit-scrollbar-track {
 @media screen and (max-width: 496px) {
     .showTodoItem {
         font-size: 19px;
+        max-width: 300px;
+    }
+    
+    .todoItem {
+        margin-bottom: 5px;
     }
 
     .underline {
-        width: 300px;
+        max-width: 300px;
     }
 }
 
