@@ -25,6 +25,7 @@ const boxes = document.getElementsByClassName('box')
 const circles = document.getElementsByClassName('circle')
 let root = document.documentElement;
 var selectedCircle
+var circleIndex
 
 //event listeners
 if (screen.width >= 768) {
@@ -142,7 +143,7 @@ function createObject() {
     var goalInput = {
         goal: document.querySelector('.goal.input').innerText,
         subgoal: document.querySelector('.subgoal.input').innerText,
-        comments: document.querySelector('.comments.input').innerText
+        comment: document.querySelector('.comments.input').innerText
     }
     allGoals.push(goalInput);
     readInput();
@@ -154,10 +155,23 @@ function readInput() {
         targetContainer.innerHTML += `
             <div class="circle dontRemoveGoal"></div>`
     }
+    setCircleProperties();
+}
+
+function setCircleProperties() {
+    for (var i=0; i<circles.length; i++) {
+        circles[i].goal = allGoals[i].goal;
+        circles[i].subgoal = allGoals[i].subgoal;
+        circles[i].comment = allGoals[i].comment;
+    }
 }
 
 function showGoalOnHover(e) {
-    todoItem.innerText = e.target.getAttribute('data-goal')
+    for (var i=0; i<circles.length; i++) {
+        if (e.target == circles[i]) {
+            todoItem.innerText = circles[i].goal;
+        }
+    }
     todoItem.style.opacity = "1";
 }
 
@@ -186,9 +200,14 @@ function showGoalInfo(e) {
 }
 
 function setGoalValue() {
-    displayGoal.innerText = selectedCircle.getAttribute('data-goal');
-    displaySubgoal.innerText = selectedCircle.getAttribute('data-subgoal');
-    displayComment.innerText = selectedCircle.getAttribute('data-comment');
+    for(var i=0; i<circles.length; i++) {
+        if (circles[i] == selectedCircle) {
+            circleIndex = i;
+            displayGoal.innerText = circles[i].goal
+            displaySubgoal.innerText = circles[i].subgoal
+            displayComment.innerText = circles[i].comment
+        }
+    }
 }
 
 function appearAnimations() {
@@ -219,8 +238,7 @@ function removeAnimations() {
     }, 170)
 }
 
-function makeEditable(e) {
-    selectedCircle = e.target
+function makeEditable() {
     clearIcons();
     submitEditedGoals();
     const editContent = document.getElementsByClassName('editContent');
@@ -266,17 +284,14 @@ function updateGoalDisplay(e) {
     e.preventDefault();
     addIcons();
     removeEditAbility();
-    updateAttributes();
+    updateProperties();
     setGoalValue();
 }
 
-function updateAttributes() {
-    const goal = displayGoal.innerText
-    const subgoal = displaySubgoal.innerText
-    const comment = displayComment.innerText
-    selectedCircle.setAttribute('data-goal', goal)
-    selectedCircle.setAttribute('data-subgoal', subgoal)
-    selectedCircle.setAttribute('data-comment', comment)
+function updateProperties() {
+    circles[circleIndex].goal = displayGoal.innerText;
+    circles[circleIndex].subgoal = displaySubgoal.innerText;
+    circles[circleIndex].comment = displayComment.innerText;
 }
 
 function underlineRed() {
@@ -293,6 +308,7 @@ function handleCompletion(e) {
 }
 
 function removeCircle() {
+    allGoals.splice(circleIndex, 1)
     moveItemToCompleteFolder() 
     removeAnimations();
     selectedCircle.remove();
