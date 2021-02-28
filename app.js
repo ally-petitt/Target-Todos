@@ -22,6 +22,7 @@ const neonGreenTheme = document.getElementById('neonGreenTheme')
 const tanColorTheme = document.getElementById('tanColorTheme');
 const mixedtheme = document.getElementById('mixedColorTheme')
 const boxes = document.getElementsByClassName('box')
+const circles = document.getElementsByClassName('circle')
 let root = document.documentElement;
 var selectedCircle
 
@@ -103,7 +104,7 @@ function checkSubmit(e) {
         underlineRed();
         return false;
     }else {
-        createCircle(e);
+        createCircle();
         resetForm();
     }
 }
@@ -121,30 +122,38 @@ function clearText() {
     }
 }
 
-function createCircle(e) {
-    let newCircle = document.createElement('div');
-    newCircle.classList.add('circle');
-    newCircle.classList.add('dontRemoveGoal');
-    targetContainer.appendChild(newCircle);
-    setSize(newCircle);
+function createCircle() {
+    createObject();
+    setEventListeners()
+    setSize();
     setZIndex();
-    addAttributes(newCircle);
-    setEventListeners(newCircle)
 }
 
-function setEventListeners(circle) {
-    circle.addEventListener('mouseover', showGoalOnHover);
-    circle.addEventListener('mouseout', decreaseOpacity)
+function setEventListeners() {
+    for (var i=0; i<circles.length; i++) {
+        circles[i].addEventListener('mouseover', showGoalOnHover);
+        circles[i].addEventListener('mouseout', decreaseOpacity)
+    }
 }
 
-function addAttributes(circle) {
-    selectedCircle = circle;
-    const goalInput = document.querySelector('.goal.input').innerText;
-    const subgoalInput = document.querySelector('.subgoal.input').innerText;
-    const commentInput = document.querySelector('.comments.input').innerText;
-    circle.setAttribute('data-goal', goalInput)
-    circle.setAttribute('data-subgoal', subgoalInput)
-    circle.setAttribute('data-comment', commentInput)
+var allGoals = []
+
+function createObject() {
+    var goalInput = {
+        goal: document.querySelector('.goal.input').innerText,
+        subgoal: document.querySelector('.subgoal.input').innerText,
+        comments: document.querySelector('.comments.input').innerText
+    }
+    allGoals.push(goalInput);
+    readInput();
+}
+
+function readInput() {
+    targetContainer.innerHTML = '';
+    for (var i=0; i<allGoals.length; i++) {
+        targetContainer.innerHTML += `
+            <div class="circle dontRemoveGoal"></div>`
+    }
 }
 
 function showGoalOnHover(e) {
@@ -157,14 +166,12 @@ function decreaseOpacity() {
 }
 
 function setZIndex() {
-    var newZIndex;
-    var circles = targetContainer.children;
-    for (var i=0; i< circles.length; i++) {
-        var currentZIndex =window.document.defaultView.getComputedStyle(circles[i]).getPropertyValue('z-index')
-        newZIndex = parseInt(currentZIndex) + 1;
-        circles[i].style.zIndex = newZIndex.toString();
+    var maxZIndex = circles.length + 1;
+    for (var i=0; i<circles.length; i++) {
+        maxZIndex -= 1 ;  
+        circles[i].style.zIndex = maxZIndex.toString();
     }
-    var iconZIndex = parseInt(newZIndex) + 1;
+    var iconZIndex = maxZIndex + 1;
     document.querySelector('.color-icon').style.zIndex = iconZIndex
     document.querySelector('.plus-btn').style.zIndex = iconZIndex
 }
