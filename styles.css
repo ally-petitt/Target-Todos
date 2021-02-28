@@ -495,3 +495,28 @@ body::-webkit-scrollbar-track {
         text-align: left;
     }
 }
+
+@media screen and (max-width: 640px) {
+    .showTodoItem {
+        font-size: 22px;
+        opacity: 1;
+        text-align: center;
+        display: block;
+    }
+
+    .underline {
+        width: 375px;
+        height: 2px;
+    }
+}
+
+@media screen and (max-width: 496px) {
+    .showTodoItem {
+        font-size: 19px;
+    }
+
+    .underline {
+        width: 300px;
+    }
+}
+
