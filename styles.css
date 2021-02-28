@@ -389,6 +389,24 @@ li {
     animation: scaleUp .2s forwards .3s;
 }
 
+/*scrollbar*/
+body::-webkit-scrollbar {
+    width: 6px;
+}
+
+body::-webkit-scrollbar-thumb {
+   background: var(--third-color); 
+   border-radius: 7px;
+   transition: all .4s;
+}
+body::-webkit-scrollbar-thumb:hover {
+   background: var(--secondary-color); 
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
 /*keyframes*/
 @keyframes grow {
     0%{opacity: 0; width: 30px;}

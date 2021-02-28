@@ -417,7 +417,7 @@ function applyMixedTheme() {
 function handleBoxShadow() {
     if (root.style.getPropertyValue('--main-color') == "red") {
         for (var i=0; i<boxes.length; i++) {
-            boxes[i].style.boxShadow = "2px 2px 7px"
+            boxes[i].style.boxShadow = "2px 2px 5px var(--third-color)"
         }
     } else {
         for (var i=0; i<boxes.length; i++) {
