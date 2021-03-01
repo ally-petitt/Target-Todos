@@ -26,19 +26,22 @@
         <div class="task-template-container box">
             <form class="submitGoal">
                 <div class="goalEntry user-input">
-                    <span role="textbox" class="goal input" placeholder="Your Goal" contenteditable></span>
+                    <input class="goal input" placeholder="Your Goal"</input>
+                    <div class="task-template-underline goal-underline"></div>
                     <h6 class="task-prompt">GOAL</h6>
                 </div>
                 <br> 
 
                 <div class="subgoalEntry user-input">
-                    <span role="textbox" class="subgoal input" placeholder="Your Subgoal (optional)" contenteditable></span>
+                    <input class="subgoal input" placeholder="Your Subgoal (optional)"</input>
+                    <div class="task-template-underline"></div>
                     <h6 class="task-prompt">SUBGOAL</h6>
                 </div>
                 <br>
 
                 <div class="commentEntry user-input">
-                    <span role="textbox" class="comments input" placeholder="Comments (optional)" contenteditable></span></input>
+                    <input class="comments input" placeholder="Comments (optional)"</input>
+                    <div class="task-template-underline"></div>
                     <h6 class="task-prompt">COMMENTS</h6>
                 </div>
                 <br>
@@ -82,7 +85,7 @@
             <div class="todoItem emptyTaskText"></div>
             <a href="#listContainer" class="scrollToList"><i class="far fa-list-alt icon list"></i></a>  
             <div class="underline"></div>
-            <div class="completedItemsContainer box hide" id="listContainer">
+            <div class="completedItemsContainer box" id="listContainer">
                 <ul class="completedListMain"></ul>
             </div>  
         </div>

@@ -101,7 +101,7 @@ function hideTaskTemplate() {
 
 function checkSubmit(e) {
     e.preventDefault();
-    if (document.querySelector('.goal.input').innerText.trim() == "") {
+    if (document.querySelector('.goal.input').value.trim() == "") {
         underlineRed();
         return false;
     }else {
@@ -120,7 +120,7 @@ function resetForm() {
 function clearText() {
     var input = document.getElementsByClassName("input")
     for (textBox of input) {
-        textBox.innerText ="";
+        textBox.value ="";
     }
 }
 
@@ -142,9 +142,9 @@ var allGoals = []
 
 function createObject() {
     var goalInput = {
-        goal: document.querySelector('.goal.input').innerText,
-        subgoal: document.querySelector('.subgoal.input').innerText,
-        comment: document.querySelector('.comments.input').innerText
+        goal: document.querySelector('.goal.input').value,
+        subgoal: document.querySelector('.subgoal.input').value,
+        comment: document.querySelector('.comments.input').value
     }
     allGoals.push(goalInput);
     readInput();
@@ -188,9 +188,8 @@ function setZIndex() {
         maxZIndex -= 1 ;  
         circles[i].style.zIndex = maxZIndex.toString();
     }
-    var iconZIndex = maxZIndex + 1;
-    document.querySelector('.color-icon').style.zIndex = iconZIndex
-    document.querySelector('.plus-btn').style.zIndex = iconZIndex
+    document.querySelector('.color-icon').style.zIndex = maxZIndex.toString();
+    document.querySelector('.plus-btn').style.zIndex = maxZIndex.toString();
 }
 
 function showGoalInfo(e) {
@@ -300,11 +299,11 @@ function updateProperties() {
 }
 
 function underlineRed() {
-    document.querySelector('.goal.input').style.borderBottom = "2px solid red"
+    document.querySelector('.goal-underline').style.backgroundColor = "red"
 }
 
 function underlineBlack() {
-    document.querySelector('.goal.input').style.borderBottom = "2px solid black"
+    document.querySelector('.goal-underline').style.backgroundColor = "var(--secondary-color)"
 }
 
 function handleCompletion(e) {
@@ -317,13 +316,7 @@ function removeCircle() {
     moveItemToCompleteFolder() 
     removeAnimations();
     selectedCircle.remove();
-    circleRemoveAnimation();
     resetText();
-    setSize();
-}
-
-function circleRemoveAnimation() {
-    selectedCircle.remove();
     setSize();
 }
 
@@ -413,9 +406,21 @@ function handleListClick() {
     const container = document.querySelector('.completedItemsContainer')
     if (container.classList.contains('hide')) {
         container.classList.remove('hide')
+        completeListAppearAnimation(container)
     } else {
+        completeListDisappearAnimation(container);
         container.classList.add('hide')
     }
+}
+
+function completeListAppearAnimation(elem) {
+    elem.classList.remove('scaleDown');
+    elem.classList.add('fadeUp')
+}
+
+function completeListDisappearAnimation(elem) {
+    elem.classList.remove('fadeUp');
+    elem.classList.add('scaleDown')
 }
 
 function applyMainColors() {

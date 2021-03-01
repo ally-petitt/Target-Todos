@@ -45,6 +45,7 @@ header div {
 
 .target-container {
     position: relative;
+    white-space: nowrap;
     right: 0;
     display: inline-block;
     text-align: center;
@@ -182,14 +183,15 @@ header div {
     transform-origin: 50% 1%;
 }
 
-span.input {
+input.input {
     display: block;
     outline: none;
     min-width: 190px;
     max-width: 190px;
     text-align: left;
     height: 1rem;
-    border-bottom: 2px solid black;
+    border: none;
+    background-color: var(--box-color);
     transition: all .3s;
 }
 
@@ -321,24 +323,33 @@ li {
     color: var(--font-color);
 }
 
-.completedListMain li {
-    display: list-item;
-    margin-left: 1rem;
-    font-size: 20px;
-    cursor: pointer;
+.completedListMain { 
+    list-style: none;
 }
 
-.completedListMain {
-    display: list-item;
+.completedGoal::before {
+    display: inline-block;
+    content: "";
+    border-radius: 50%;
+    border: 2px solid black;
+    height: .2rem;
+    width: .2rem;
+    margin-right: .5rem;
+    margin-bottom: .1rem;
 }
 
 .completedGoal {
     display: list-item;
     list-style-type: circle;
+    list-style: circle;
+    list-style-position: inside;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .completedListNested li {
     margin-left: 2.7rem;
+    font-size: 1rem;
     padding-top: none;
     list-style-type: disc;
 }
@@ -388,6 +399,10 @@ li {
     animation: scaleUp .15s forwards;
 }
 
+.scaleDown {
+    animation: scaleDown .2s forwards;
+}
+
 .fadeDown {
     animation: fadeDown .2s forwards;
 }
@@ -397,7 +412,7 @@ li {
 }
 
 .listAppear {
-    animation: scaleUp .2s forwards .3s;
+    animation: fadeUp .2s forwards .3s;
 }
 
 /*scrollbar*/
@@ -460,6 +475,11 @@ body::-webkit-scrollbar-track {
     100% {transform: scale(1); opacity: 1;}
 }
 
+@keyframes scaleDown {
+    0% {transform: scale(1); background-color: red;}
+    100% {transform: scale(0.1); opacity: 1;}
+}
+
 @keyframes fadeDown {
     0% {transform: translateY(0); opacity: 1;}
     100% {transform: translateY(20px); opacity: 0;}
@@ -489,7 +509,7 @@ body::-webkit-scrollbar-track {
         max-width: 170px;
     }
     
-    span.input {
+    input.input {
         width: 80%;
         max-width: 120px;
         min-width: 120px;
