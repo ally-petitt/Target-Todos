@@ -511,8 +511,12 @@ body::-webkit-scrollbar-track {
     
     input.input {
         width: 80%;
-        max-width: 120px;
-        min-width: 120px;
+        max-width: 130px;
+        min-width: 130px;
+    }
+
+    .task-template-underline {
+        width: 135px;
     }
 
     .completedItemsContainer {
