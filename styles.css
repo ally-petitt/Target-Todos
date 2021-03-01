@@ -64,6 +64,7 @@ header div {
     bottom: 0;
     cursor: pointer;
     z-index: 1;
+    transition: background-color .25s;
 }
 
 .circle:nth-child(even) {
@@ -344,6 +345,14 @@ li {
 
 .completedListNested {
     max-height: 8rem;
+}
+/*drag-n-drop classes*/
+.circle:nth-child(even).changeColor {
+    background-color: rgb(235, 85, 85);
+}
+
+.circle:nth-child(odd).changeColor {
+    background-color: #bbb;
 }
 
 /*animation classes*/

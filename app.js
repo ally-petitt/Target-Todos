@@ -105,6 +105,7 @@ function checkSubmit(e) {
         underlineRed();
         return false;
     }else {
+        createObject();
         createCircle();
         resetForm();
     }
@@ -124,10 +125,10 @@ function clearText() {
 }
 
 function createCircle() {
-    createObject();
     setEventListeners()
     setSize();
     setZIndex();
+    dragNDropCircles();
 }
 
 function setEventListeners() {
@@ -153,23 +154,25 @@ function readInput() {
     targetContainer.innerHTML = '';
     for (var i=0; i<allGoals.length; i++) {
         targetContainer.innerHTML += `
-            <div class="circle dontRemoveGoal"></div>`
+            <div class="circle dontRemoveGoal" draggable="true"></div>`
     }
     setCircleProperties();
 }
 
 function setCircleProperties() {
     for (var i=0; i<circles.length; i++) {
-        circles[i].goal = allGoals[i].goal;
-        circles[i].subgoal = allGoals[i].subgoal;
-        circles[i].comment = allGoals[i].comment;
+        circles[i].info = {
+            goal: allGoals[i].goal,
+            subgoal: allGoals[i].subgoal,
+            comment: allGoals[i].comment
+        }
     }
 }
 
 function showGoalOnHover(e) {
     for (var i=0; i<circles.length; i++) {
         if (e.target == circles[i]) {
-            todoItem.innerText = circles[i].goal;
+            todoItem.innerText = allGoals[i].goal;
         }
     }
     todoItem.style.opacity = "1";
@@ -203,9 +206,9 @@ function setGoalValue() {
     for(var i=0; i<circles.length; i++) {
         if (circles[i] == selectedCircle) {
             circleIndex = i;
-            displayGoal.innerText = circles[i].goal
-            displaySubgoal.innerText = circles[i].subgoal
-            displayComment.innerText = circles[i].comment
+            displayGoal.innerText = circles[i].info.goal
+            displaySubgoal.innerText = circles[i].info.subgoal
+            displayComment.innerText = circles[i].info.comment
         }
     }
 }
@@ -289,9 +292,11 @@ function updateGoalDisplay(e) {
 }
 
 function updateProperties() {
-    circles[circleIndex].goal = displayGoal.innerText;
-    circles[circleIndex].subgoal = displaySubgoal.innerText;
-    circles[circleIndex].comment = displayComment.innerText;
+    circles[circleIndex].info = {
+        goal: displayGoal.innerText,
+        subgoal: displaySubgoal.innerText,
+        comment: displayComment.innerText
+    }
 }
 
 function underlineRed() {
@@ -377,9 +382,9 @@ function addCompletedListClassNames(arr) {
 }
 
 function addListValues(arr) {
-    arr[0].innerText = selectedCircle.getAttribute('data-goal')
-    arr[1].innerText = selectedCircle.getAttribute('data-subgoal')
-    arr[2].innerText = selectedCircle.getAttribute('data-comment')
+    arr[0].innerText = selectedCircle.info.goal
+    arr[1].innerText = selectedCircle.info.subgoal
+    arr[2].innerText = selectedCircle.info.comment
     for (var i=1; i<3; i++) {
         arr[i].style.display = "none";
         if (arr[i].innerText == "") {
@@ -482,5 +487,51 @@ function scrollToList() {
     } else {
         anchorTag.setAttribute('href', '#listContainer');
     }
+}
+
+//drag-n-drop 
+//e.target of all events is the element that is being dragged
+//on dragenter, dragover, dragleave or drop, e.target is the element that is a drop target
+function dragNDropCircles() {
+    for (circle of circles) {
+        circle.addEventListener('dragstart', dragStart)
+        circle.addEventListener('drop', dropCircle)
+        circle.addEventListener('dragover', dragOver)
+        circle.addEventListener('dragleave', dragLeave)
+    }
+}
+
+let index
+
+function dragStart(e) {
+    for (var i=0; i < circles.length; i++) {
+        if (circles[i] == e.target) 
+        index = i
+    }
+}
+
+function dragOver(e) {
+    e.preventDefault();
+    e.target.classList.add('changeColor')
+}
+
+function dragLeave(e) {
+    e.target.classList.remove('changeColor')
+}
+
+function dropCircle(e) {
+    e.preventDefault();
+    e.target.classList.remove('changeColor')
+    for (var i=0; i < circles.length; i++) {
+        if (circles[i] == e.target) {
+            assignNewCircleValues(index, i);
+        }
+    }
+}
+
+function assignNewCircleValues(droppedCircleIndex, recievingCircleIndex) {
+    allGoals[droppedCircleIndex] = circles[recievingCircleIndex].info;
+    allGoals[recievingCircleIndex] = circles[droppedCircleIndex].info;
+    createCircle();
 }
 
