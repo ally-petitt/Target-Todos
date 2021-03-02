@@ -78,6 +78,10 @@ header div {
 
 .showTodoItem {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 1.6em;
     color: var(--font-color);
     width: 500px;
@@ -85,9 +89,9 @@ header div {
 }
 
 .underline {
-    display: inline-block;
     height: 3px;
     width: 100%;
+    margin: 10px auto;
     background-color: var(--font-color);
 }
 
@@ -158,7 +162,6 @@ header div {
 
 .showTodoItem .icon {
     float: right;
-    margin-bottom: -3px;
 }
 
 .showTodoItem {

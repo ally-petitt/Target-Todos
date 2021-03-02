@@ -448,9 +448,8 @@ function applyGreenTheme() {
     root.style.setProperty('--box-color', "white");
     root.style.setProperty('--main-color', "rgb(0, 145, 0)");
     root.style.setProperty('--secondary-color', "pink");
-    root.style.setProperty('--third-color', "#aaa");
-    root.style.setProperty('--font-color', "var(--background-color)");
-    document.querySelector('.underline').style.backgroundColor = "white"
+    root.style.setProperty('--third-color', "#eee");
+    root.style.setProperty('--font-color', "#0D98BA");
     handleBoxShadow();
 }
 
@@ -460,7 +459,7 @@ function applyMixedTheme() {
     root.style.setProperty('--main-color', "#e4e3cc");
     root.style.setProperty('--secondary-color', "#e4e3cc");
     root.style.setProperty('--third-color', "#bb2321");
-    root.style.setProperty('--font-color', "e8e8c6");
+    root.style.setProperty('--font-color', "#e8e8c6");
     handleBoxShadow();
 }
 
@@ -537,6 +536,7 @@ function dropCircle(e) {
 function assignNewCircleValues(droppedCircleIndex, recievingCircleIndex) {
     allGoals[droppedCircleIndex] = circles[recievingCircleIndex].info;
     allGoals[recievingCircleIndex] = circles[droppedCircleIndex].info;
+    readInput();
     createCircle();
 }
 
