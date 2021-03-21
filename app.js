@@ -434,44 +434,62 @@ function completeListDisappearAnimation(elem) {
   elem.classList.add("scaleDown");
 }
 
-function applyMainColors() {
-  root.style.setProperty("--background-color", "white");
-  root.style.setProperty("--box-color", "white");
-  root.style.setProperty("--main-color", "red");
-  root.style.setProperty("--secondary-color", "#01994d");
-  root.style.setProperty("--third-color", "#ddd");
-  root.style.setProperty("--font-color", "black");
+const themes = {
+  main: {
+    '--background-color': 'white',
+    '--box-color': 'white',
+    '--main-color': 'red',
+    '--secondary-color': '#01994d',
+    '--third-color': '#ddd',
+    '--font-color': 'black'
+  },
+  tan: {
+    '--background-color': '#AA8C77',
+    '--box-color': '#e4e3cc',
+    '--main-color': '#157F9E',
+    '--secondary-color': '#332c30',
+    '--third-color': '#E4E3CC',
+    '--font-color': 'black'
+  },
+  green: {
+    "--background-color": "rgb(13, 18, 24)",
+    "--box-color": "white",
+    "--main-color": "rgb(0, 145, 0)",
+    "--secondary-color": "pink",
+    "--third-color": "#eee",
+    "--font-color": "#0D98BA"
+  },
+  mixed: {
+    "--background-color": "#551b17",
+    "--box-color": "#2a4d53",
+    "--main-color": "#e4e3cc",
+    "--secondary-color": "#e4e3cc",
+    "--third-color": "#bb2321",
+    "--font-color": "#e8e8c6"
+  }
+}
+
+function applyTheme(theme = themes.main) {
+  Object.keys(theme).forEach((prop) => {
+    root.style.setProperty(prop, theme[prop])
+  });
   handleBoxShadow();
+}
+
+function applyMainColors() {
+  applyTheme(themes.main);
 }
 
 function applyTanTheme() {
-  root.style.setProperty("--background-color", "#AA8C77");
-  root.style.setProperty("--box-color", "#e4e3cc");
-  root.style.setProperty("--main-color", "#157F9E");
-  root.style.setProperty("--secondary-color", "#332c30");
-  root.style.setProperty("--third-color", "#E4E3CC");
-  root.style.setProperty("--font-color", "black");
-  handleBoxShadow();
+  applyTheme(themes.tan);
 }
 
 function applyGreenTheme() {
-  root.style.setProperty("--background-color", "rgb(13, 18, 24)");
-  root.style.setProperty("--box-color", "white");
-  root.style.setProperty("--main-color", "rgb(0, 145, 0)");
-  root.style.setProperty("--secondary-color", "pink");
-  root.style.setProperty("--third-color", "#eee");
-  root.style.setProperty("--font-color", "#0D98BA");
-  handleBoxShadow();
+  applyTheme(themes.green);
 }
 
 function applyMixedTheme() {
-  root.style.setProperty("--background-color", "#551b17");
-  root.style.setProperty("--box-color", "#2a4d53");
-  root.style.setProperty("--main-color", "#e4e3cc");
-  root.style.setProperty("--secondary-color", "#e4e3cc");
-  root.style.setProperty("--third-color", "#bb2321");
-  root.style.setProperty("--font-color", "#e8e8c6");
-  handleBoxShadow();
+  applyTheme(themes.mixed);
 }
 
 function handleBoxShadow() {
