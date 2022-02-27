@@ -33,7 +33,7 @@ var circleIndex;
 if (screen.width >= 768) {
   colorTheme_div.addEventListener("mouseover", showThemes);
   colorTheme_div.addEventListener("mouseout", removeThemes);
-  todoItem.defaultValue = "Hover over the target to see your goals...";
+  todoItem.defaultValue = "Click the plus icon to add a goal...";
 }
 plusBtn.addEventListener("click", () => {
   if (taskTemplateContainer.style.display == "block") {
